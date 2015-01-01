@@ -197,5 +197,6 @@ public class SecureSettings {
         Settings.Secure.TORCH_DOUBLE_TAP_POWER_GESTURE_ENABLED,
         Settings.Secure.TORCH_LONG_PRESS_POWER,
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
+        Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
     };
 }
