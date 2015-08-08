@@ -5840,7 +5840,7 @@ public final class Settings {
          */
         @Readable
         public static final String NOTIFICATION_PULSE_COLOR_MODE = "ambient_notification_color_mode";
-        
+
         /**
          * Pulse Ambient lights color
          * @hide
@@ -5896,6 +5896,12 @@ public final class Settings {
          * @hide
          */
         public static final String FULLSCREEN_GESTURES = "fullscreen_gestures";
+
+        /**
+         * Three Finger Gesture from Oppo
+         * @hide
+         */
+        public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
         /**
          * These are all public system settings
