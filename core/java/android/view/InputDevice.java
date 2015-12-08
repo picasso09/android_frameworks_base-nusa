@@ -344,7 +344,7 @@ public final class InputDevice implements Parcelable {
      * @author Carlo Savignano
      * @hide
      */
-    public static final int SOURCE_NAVIGATION_BAR = 0x04000000 | SOURCE_CLASS_BUTTON;
+    public static final int SOURCE_NAVIGATION_BAR = 0x08000000 | SOURCE_CLASS_BUTTON;
 
     /**
      * The input source is a custom virtual key event sent programmatically to emulate different events.
@@ -353,7 +353,7 @@ public final class InputDevice implements Parcelable {
      * @author Carlo Savignano
      * @hide
      */
-    public static final int SOURCE_CUSTOM = 0x08000000 | SOURCE_CLASS_BUTTON;
+    public static final int SOURCE_CUSTOM = 0x10000000 | SOURCE_CLASS_BUTTON;
 
     /**
      * A special input source constant that is used when filtering input devices
