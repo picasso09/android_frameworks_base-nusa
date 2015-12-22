@@ -82,4 +82,9 @@
     <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
     <string name="accessibility_quick_settings_cpuinfo_changed_off">CPU Info turned off</string>
     <string name="accessibility_quick_settings_cpuinfo_changed_on">CPU Info turned on</string>
+
+    <!-- NavBar QS Tile -->
+    <string name="quick_settings_navbar_title">Navigation Bar</string>
+    <string name="accessibility_quick_settings_navbar_changed_off">Navigation bar turned off</string>
+    <string name="accessibility_quick_settings_navbar_changed_on">Navigation bar turned on</string>
 </resources>

@@ -44,6 +44,7 @@ import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.InternetTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.MicrophoneToggleTile;
+import com.android.systemui.qs.tiles.NavBarTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.QuickAccessWalletTile;
@@ -100,6 +101,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
     private final Provider<AODTile> mAODTileProvider;
     private final Provider<CPUInfoTile> mCPUInfoTileProvider;
+    private final Provider<NavBarTile> mNavBarTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
     private final Provider<CustomTile.Builder> mCustomTileBuilderProvider;
@@ -139,7 +141,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SyncTile> syncTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<AODTile> aodTileProvider,
-            Provider<CPUInfoTile> cpuInfoTileProvider) {
+            Provider<CPUInfoTile> cpuInfoTileProvider,
+            Provider<NavBarTile> navbarTileProvider) {
         mQsHostLazy = qsHostLazy;
         mCustomTileBuilderProvider = customTileBuilderProvider;
 
@@ -175,6 +178,7 @@ public class QSFactoryImpl implements QSFactory {
         mDataSwitchTileProvider = dataSwitchTileProvider;
         mAODTileProvider = aodTileProvider;
         mCPUInfoTileProvider = cpuInfoTileProvider;
+        mNavBarTileProvider = navbarTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -251,6 +255,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mAODTileProvider.get();
             case "cpuinfo":
                 return mCPUInfoTileProvider.get();
+            case "navbar":
+                return mNavBarTileProvider.get();
         }
 
         // Custom tiles
