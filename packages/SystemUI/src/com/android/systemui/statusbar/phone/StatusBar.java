@@ -1983,49 +1983,6 @@ public class StatusBar extends SystemUI implements
         }
     }
 
-    private NadSettingsObserver mNadSettingsObserver = new NadSettingsObserver(mMainHandler);
-    private class NadSettingsObserver extends ContentObserver {
-
-        NadSettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.FORCE_SHOW_NAVBAR),
-                    false, this, UserHandle.USER_ALL);
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            if (uri.equals(Settings.System.getUriFor(Settings.System.FORCE_SHOW_NAVBAR))) {
-                updateNavigationBar(false);
-            }
-        }
-
-        public void update() {
-        }
-    }
-
-    private void updateNavigationBar(boolean init) {
-        boolean showNavBar = NadUtils.deviceSupportNavigationBar(mContext);
-        if (init) {
-            if (showNavBar) {
-                mNavigationBarController.createNavigationBars(true, null);
-            }
-        } else {
-            if (showNavBar != mShowNavBar) {
-                if (showNavBar) {
-                    mNavigationBarController.createNavigationBars(true, null);
-                } else {
-                    mNavigationBarController.removeNavigationBar(mDisplayId);
-                }
-            }
-        }
-        mShowNavBar = showNavBar;
-    }
-
     private void maybeEscalateHeadsUp() {
         mHeadsUpManager.getAllEntries().forEach(entry -> {
             final StatusBarNotification sbn = entry.getSbn();
@@ -3923,6 +3880,64 @@ public class StatusBar extends SystemUI implements
         return mDeviceInteractive;
     }
 
+    private NadSettingsObserver mNadSettingsObserver = new NadSettingsObserver(mMainHandler);
+    private class NadSettingsObserver extends ContentObserver {
+
+        NadSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FORCE_SHOW_NAVBAR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(Settings.System.FORCE_SHOW_NAVBAR))) {
+                updateNavigationBar(false);
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
+                setLockscreenDoubleTapToSleep();
+            }
+        }
+
+        public void update() {
+            setLockscreenDoubleTapToSleep();
+        }
+    }
+
+    private void updateNavigationBar(boolean init) {
+        boolean showNavBar = NadUtils.deviceSupportNavigationBar(mContext);
+        if (init) {
+            if (showNavBar) {
+                mNavigationBarController.createNavigationBars(true, null);
+            }
+        } else {
+            if (showNavBar != mShowNavBar) {
+                if (showNavBar) {
+                    mNavigationBarController.createNavigationBars(true, null);
+                } else {
+                    mNavigationBarController.removeNavigationBar(mDisplayId);
+                }
+            }
+        }
+        mShowNavBar = showNavBar;
+    }
+
+    private void setLockscreenDoubleTapToSleep() {
+        boolean isDoubleTapLockscreenEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN, 0, UserHandle.USER_CURRENT) == 1;
+        if (mNotificationPanelViewController != null) {
+            mNotificationPanelViewController.setLockscreenDoubleTapToSleep(isDoubleTapLockscreenEnabled);
+        }
+    }
+    
     private final BroadcastReceiver mBannerActionBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
