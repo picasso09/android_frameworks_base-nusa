@@ -21,7 +21,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">
-        heads_up,sync,dataswitch,aod,cpuinfo,navbar,fpsinfo
+        heads_up,sync,dataswitch,aod,cpuinfo,navbar,fpsinfo,caffeine
     </string>
 
     <!-- Color of the UDFPS pressed view -->
