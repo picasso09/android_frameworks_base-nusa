@@ -6287,6 +6287,14 @@ public final class Settings {
         public static final String CHARGING_ANIMATION = "charging_animation";
 
         /**
+         * Whether to display activity indicators on wifi and mobile icons
+         *
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_ACTIVITY_INDICATORS =
+                 "status_bar_show_activity_indicators";
+
+        /**
          * These are all public system settings
          *
          * @hide
