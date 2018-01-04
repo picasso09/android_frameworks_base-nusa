@@ -115,5 +115,6 @@ public class SystemSettings {
         Settings.System.SHOW_AUTO_BRIGHTNESS_BUTTON,
         Settings.System.BRIGHTNESS_SLIDER_POSITION,
         Settings.System.DATA_DISABLED_ICON,
+        Settings.System.NOTIFICATION_SOUND_VIB_SCREEN_ON,
     };
 }

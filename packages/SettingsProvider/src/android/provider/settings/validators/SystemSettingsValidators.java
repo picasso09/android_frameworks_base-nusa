@@ -251,5 +251,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.SHOW_AUTO_BRIGHTNESS_BUTTON, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.BRIGHTNESS_SLIDER_POSITION, new InclusiveIntegerRangeValidator(0, 1));
         VALIDATORS.put(System.DATA_DISABLED_ICON, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.NOTIFICATION_SOUND_VIB_SCREEN_ON, BOOLEAN_VALIDATOR);
     }
 }
