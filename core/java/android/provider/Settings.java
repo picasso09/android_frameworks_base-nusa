@@ -6222,6 +6222,12 @@ public final class Settings {
         public static final String QS_SHOW_BATTERY_PERCENT_ESTIMATE = "qs_show_battery_percent_estimate";
 
         /**
+         * Whether to display cross sign for a data disabled connection
+         * @hide
+         */
+        public static final String DATA_DISABLED_ICON = "data_disabled_icon";
+
+        /**
          * These are all public system settings
          *
          * @hide
@@ -6363,6 +6369,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_RX);
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
             PRIVATE_SETTINGS.add(VOLUME_PANEL_ON_LEFT);
+            PRIVATE_SETTINGS.add(DATA_DISABLED_ICON);
         }
 
         /**

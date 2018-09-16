@@ -126,6 +126,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private FeatureConnector<ImsManager> mFeatureConnector;
     private int mCallState = TelephonyManager.CALL_STATE_IDLE;
     private boolean mShowVolteIcon;
+    private boolean mDataDisabledIcon;
 
     private final MobileStatusTracker.Callback mMobileCallback =
             new MobileStatusTracker.Callback() {
@@ -290,6 +291,9 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mVolteIcon = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.SHOW_VOLTE_ICON, 1,
                 UserHandle.USER_CURRENT) == 1;
+        mDataDisabledIcon = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.DATA_DISABLED_ICON, 1,
+                UserHandle.USER_CURRENT) == 1;
         setConfiguration(Config.readConfig(mContext));
         notifyListenersIfNecessary();
     }
@@ -351,6 +355,11 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         );
         resolver.registerContentObserver(
             Settings.System.getUriFor(Settings.System.SHOW_VOLTE_ICON),
+            true,
+            mSettingsObserver
+        );
+        resolver.registerContentObserver(
+            Settings.System.getUriFor(Settings.System.DATA_DISABLED_ICON),
             true,
             mSettingsObserver
         );
@@ -889,7 +898,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mCurrentState.roaming = isRoaming();
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-        } else if (isDataDisabled() && !mConfig.alwaysShowDataRatIcon) {
+        } else if (isDataDisabled() && mDataDisabledIcon/*!mConfig.alwaysShowDataRatIcon*/) {
             if (mSubscriptionInfo.getSubscriptionId() != mDefaults.getDefaultDataSubId()) {
                 mCurrentState.iconGroup = TelephonyIcons.NOT_DEFAULT_DATA;
             } else {
@@ -1014,7 +1023,8 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             if (Settings.System.SHOW_FOURG_ICON.equals(uri.getLastPathSegment()) ||
-                Settings.System.SHOW_VOLTE_ICON.equals(uri.getLastPathSegment())) {
+                Settings.System.SHOW_VOLTE_ICON.equals(uri.getLastPathSegment()) ||
+                Settings.System.DATA_DISABLED_ICON.equals(uri.getLastPathSegment())) {
                 updateSettings();
             } else {
                 updateTelephony();
