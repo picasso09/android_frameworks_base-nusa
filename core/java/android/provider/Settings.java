@@ -11386,6 +11386,13 @@ public final class Settings {
                 "quick_settings_vibrate_duration";
 
 
+        /*
+         * Boolean value whether to display volume panel on the display left
+         * @hide
+         */
+        @SuppressLint("NoSettingsProvider")
+        public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
+
         /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
