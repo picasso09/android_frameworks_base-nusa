@@ -123,5 +123,6 @@ public class SystemSettings {
         Settings.System.CHARGING_ANIMATION,
         Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
         Settings.System.HEADS_UP_TIMEOUT,
+        Settings.System.HEADS_UP_BLACKLIST_VALUES,
     };
 }
