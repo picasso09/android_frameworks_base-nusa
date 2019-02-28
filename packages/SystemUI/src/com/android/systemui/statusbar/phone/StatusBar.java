@@ -2027,6 +2027,14 @@ public class StatusBar extends SystemUI implements
         }
     }
 
+    protected void toggleSettingsPanel() {
+        if (mPanelExpanded) {
+            mShadeController.animateCollapsePanels();
+        } else {
+            animateExpandSettingsPanel(null);
+        }
+    }
+
     public void postAnimateCollapsePanels() {
         mMainExecutor.execute(mShadeController::animateCollapsePanels);
     }
