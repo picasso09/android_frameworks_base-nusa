@@ -6411,6 +6411,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case NavbarUtilities.KEY_ACTION_KILL_APP:
                 NadUtils.killForegroundApp();
                 break;
+            case NavbarUtilities.KEY_ACTION_SKIP_TRACK:
+                mLineageButtons.skipTrack();
+                break;
+            case NavbarUtilities.KEY_ACTION_PREVIOUS_TRACK:
+                mLineageButtons.previousTrack();
+                break;
         }
     }
 
