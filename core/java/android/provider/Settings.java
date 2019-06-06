@@ -6262,6 +6262,12 @@ public final class Settings {
         public static final String LOCKSCREEN_BATTERY_INFO_TEMP_UNIT = "lockscreen_charge_temp_unit";
 
         /**
+         * Whether to show charging animation
+         * @hide
+         */
+        public static final String CHARGING_ANIMATION = "charging_animation";
+
+        /**
          * These are all public system settings
          *
          * @hide
@@ -6409,6 +6415,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
             PRIVATE_SETTINGS.add(LOCKSCREEN_BATTERY_INFO);
             PRIVATE_SETTINGS.add(LOCKSCREEN_BATTERY_INFO_TEMP_UNIT);
+            PRIVATE_SETTINGS.add(CHARGING_ANIMATION);
         }
 
         /**
