@@ -3879,11 +3879,11 @@ public class StatusBar extends SystemUI implements
         return mDeviceInteractive;
     }
 
-    private NadSettingsObserver mNadSettingsObserver = new NadSettingsObserver(mMainHandler);
-    private class NadSettingsObserver extends ContentObserver {
+    private NadSettingsObserver mNadSettingsObserver = new NadSettingsObserver();
 
-        NadSettingsObserver(Handler handler) {
-            super(handler);
+    private class NadSettingsObserver extends ContentObserver {
+        NadSettingsObserver() {
+            super(mMainHandler);
         }
 
         void observe() {
@@ -3903,6 +3903,9 @@ public class StatusBar extends SystemUI implements
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -3917,12 +3920,16 @@ public class StatusBar extends SystemUI implements
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS))) {
                 setPulseOnNewTracks();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP))) {
+                setUseLessBoringHeadsUp();
             }
         }
 
         public void update() {
             setDoubleTapToSleepGesture();
             setPulseOnNewTracks();
+            setUseLessBoringHeadsUp();
         }
     }
 
@@ -3956,6 +3963,13 @@ public class StatusBar extends SystemUI implements
                     Settings.System.PULSE_ON_NEW_TRACKS, 1,
                     UserHandle.USER_CURRENT) == 1);
         }
+    }
+
+    private void setUseLessBoringHeadsUp() {
+        boolean lessBoringHeadsUp = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LESS_BORING_HEADS_UP, 0,
+                UserHandle.USER_CURRENT) == 1;
+        mNotificationInterruptStateProvider.setUseLessBoringHeadsUp(lessBoringHeadsUp);
     }
 
     private final BroadcastReceiver mBannerActionBroadcastReceiver = new BroadcastReceiver() {

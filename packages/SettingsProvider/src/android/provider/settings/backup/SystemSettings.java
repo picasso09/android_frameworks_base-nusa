@@ -117,5 +117,6 @@ public class SystemSettings {
         Settings.System.DATA_DISABLED_ICON,
         Settings.System.NOTIFICATION_SOUND_VIB_SCREEN_ON,
         Settings.System.MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD,
+        Settings.System.LESS_BORING_HEADS_UP,
     };
 }
