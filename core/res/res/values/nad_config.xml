@@ -130,4 +130,10 @@
 
     <!-- NightLight FOD -->
     <bool name="disable_fod_night_light">false</bool>
+
+    <!-- Whether device has a physical display cutout -->
+    <bool name="config_physicalDisplayCutout">false</bool>
+
+    <!-- Whether device has a big physical display cutout -->
+    <bool name="config_bigPhysicalDisplayCutout">false</bool>
 </resources>
