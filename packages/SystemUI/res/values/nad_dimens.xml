@@ -28,4 +28,7 @@
     <dimen name="cpu_info_text_height">12dp</dimen>
 
    <dimen name="fps_info_text_padding">4dp</dimen>
+
+    <!-- Bottom margin size when fingerprint in display is active -->
+    <dimen name="keyguard_indication_margin_bottom_fingerprint_in_display">@dimen/keyguard_indication_margin_bottom</dimen>
 </resources>
