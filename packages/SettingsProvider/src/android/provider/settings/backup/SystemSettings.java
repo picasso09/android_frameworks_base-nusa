@@ -106,5 +106,6 @@ public class SystemSettings {
         Settings.System.FULLSCREEN_GESTURES,
         Settings.System.THREE_FINGER_GESTURE,
         Settings.System.NAVIGATION_BAR_ARROW_KEYS,
+        Settings.System.QS_FOOTER_TEXT_SHOW,
     };
 }
