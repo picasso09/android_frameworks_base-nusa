@@ -50,6 +50,7 @@ public class AmbientDisplayConfiguration {
                 || pulseOnLongPressEnabled(user)
                 || pulseOnCustomDozeEventEnabled(user)
                 || alwaysOnEnabled(user)
+                || isAmbientTickerEnabled(user)
                 || wakeLockScreenGestureEnabled(user)
                 || wakeDisplayGestureEnabled(user)
                 || pickupGestureEnabled(user)
@@ -77,6 +78,12 @@ public class AmbientDisplayConfiguration {
                 || Settings.System.getInt(mContext.getContentResolver(), Settings.System.CUSTOM_AMBIENT_POCKETMODE_GESTURE, 0) != 0
                 || Settings.System.getInt(mContext.getContentResolver(), Settings.System.CUSTOM_AMBIENT_HANDWAVE_GESTURE, 0) != 0)
                 && pulseOnNotificationAvailable();
+    }
+
+    /** {@hide} */
+    public boolean isAmbientTickerEnabled(int user) {
+        return Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.PULSE_ON_NEW_TRACKS, 1, user) != 0;
     }
 
     /** {@hide} */
