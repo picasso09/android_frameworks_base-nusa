@@ -107,5 +107,6 @@ public class SystemSettings {
         Settings.System.THREE_FINGER_GESTURE,
         Settings.System.NAVIGATION_BAR_ARROW_KEYS,
         Settings.System.QS_FOOTER_TEXT_SHOW,
+        Settings.System.QS_FOOTER_TEXT_STRING,
     };
 }
