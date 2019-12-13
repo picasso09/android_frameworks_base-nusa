@@ -5951,6 +5951,12 @@ public final class Settings {
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
         /**
+         * Whether to show arrow keys in navigation bar
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
+
+        /**
          * These are all public system settings
          *
          * @hide
