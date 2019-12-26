@@ -66,6 +66,7 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
     private final View mCenteredIconView;
     private final View mClockView;
     private final View mOperatorNameView;
+    private final View mNadLogoView;
     private final DarkIconDispatcher mDarkIconDispatcher;
     private final NotificationPanelViewController mNotificationPanelViewController;
     private final Consumer<ExpandableNotificationRow>
@@ -113,7 +114,8 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
                 statusBarView.findViewById(R.id.heads_up_status_bar_view),
                 statusBarView.findViewById(R.id.clock),
                 statusBarView.findViewById(R.id.operator_name_frame),
-                statusBarView.findViewById(R.id.centered_icon_area));
+                statusBarView.findViewById(R.id.centered_icon_area),
+                statusBarView.findViewById(R.id.status_bar_logo));
     }
 
     @VisibleForTesting
@@ -130,7 +132,8 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
             HeadsUpStatusBarView headsUpStatusBarView,
             View clockView,
             View operatorNameView,
-            View centeredIconView) {
+            View centeredIconView,
+            View nadLogoView) {
         super(headsUpStatusBarView);
         mNotificationIconAreaController = notificationIconAreaController;
         mHeadsUpManager = headsUpManager;
@@ -148,6 +151,7 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
         mNotificationPanelViewController = notificationPanelViewController;
         mStackScrollerController.setHeadsUpAppearanceController(this);
         mClockView = clockView;
+        mNadLogoView = nadLogoView;
         mOperatorNameView = operatorNameView;
         mDarkIconDispatcher = Dependency.get(DarkIconDispatcher.class);
 
@@ -250,6 +254,9 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
                 if (mOperatorNameView != null) {
                     hide(mOperatorNameView, View.INVISIBLE);
                 }
+               if (mNadLogoView.getVisibility() != View.GONE) {
+                    hide(mNadLogoView, View.INVISIBLE);
+                }
             } else {
                 if (clockStyle == 0 && isClockVisible) {
                     show(mClockView);
@@ -265,6 +272,9 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
                 hide(mView, View.GONE, () -> {
                     updateParentClipping(true /* shouldClip */);
                 });
+               if (mNadLogoView.getVisibility() != View.GONE) {
+                    show(mNadLogoView);
+                }
             }
             // Show the status bar icons when the view gets shown / hidden
             if (mStatusBarStateController.getState() != StatusBarState.SHADE) {
