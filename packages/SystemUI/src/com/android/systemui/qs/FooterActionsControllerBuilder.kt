@@ -27,7 +27,6 @@ import com.android.systemui.qs.dagger.QSFlagsModule
 import com.android.systemui.statusbar.phone.MultiUserSwitchController
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.statusbar.policy.UserInfoController
-import com.android.systemui.tuner.TunerService
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -40,7 +39,6 @@ class FooterActionsControllerBuilder @Inject constructor(
     private val deviceProvisionedController: DeviceProvisionedController,
     private val falsingManager: FalsingManager,
     private val metricsLogger: MetricsLogger,
-    private val tunerService: TunerService,
     private val globalActionsDialog: GlobalActionsDialogLite,
     private val uiEventLogger: UiEventLogger,
     @Named(QSFlagsModule.PM_LITE_ENABLED) private val showPMLiteButton: Boolean
@@ -61,7 +59,7 @@ class FooterActionsControllerBuilder @Inject constructor(
     fun build(): FooterActionsController {
         return FooterActionsController(view, qsPanelController, activityStarter, userManager,
                 userInfoController, multiUserSwitchControllerFactory.create(view),
-                deviceProvisionedController, falsingManager, metricsLogger, tunerService,
+                deviceProvisionedController, falsingManager, metricsLogger,
                 globalActionsDialog, uiEventLogger, showPMLiteButton, buttonsVisibleState)
     }
 }

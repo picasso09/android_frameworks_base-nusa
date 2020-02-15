@@ -40,7 +40,6 @@ import com.android.systemui.statusbar.phone.SettingsButton
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.statusbar.policy.UserInfoController
 import com.android.systemui.statusbar.policy.UserInfoController.OnUserInfoChangedListener
-import com.android.systemui.tuner.TunerService
 import com.android.systemui.util.ViewController
 import javax.inject.Inject
 import javax.inject.Named
@@ -60,7 +59,6 @@ class FooterActionsController @Inject constructor(
     private val deviceProvisionedController: DeviceProvisionedController,
     private val falsingManager: FalsingManager,
     private val metricsLogger: MetricsLogger,
-    private val tunerService: TunerService,
     private val globalActionsDialog: GlobalActionsDialogLite,
     private val uiEventLogger: UiEventLogger,
     @Named(PM_LITE_ENABLED) private val showPMLiteButton: Boolean,
@@ -98,22 +96,7 @@ class FooterActionsController @Inject constructor(
             metricsLogger.action(
                     if (expanded) MetricsProto.MetricsEvent.ACTION_QS_EXPANDED_SETTINGS_LAUNCH
                     else MetricsProto.MetricsEvent.ACTION_QS_COLLAPSED_SETTINGS_LAUNCH)
-            if (settingsButton.isTunerClick) {
-                activityStarter.postQSRunnableDismissingKeyguard {
-                    if (isTunerEnabled()) {
-                        tunerService.showResetRequest {
-                            // Relaunch settings so that the tuner disappears.
-                            startSettingsActivity()
-                        }
-                    } else {
-                        Toast.makeText(context, R.string.tuner_toast, Toast.LENGTH_LONG).show()
-                        tunerService.isTunerEnabled = true
-                    }
-                    startSettingsActivity()
-                }
-            } else {
                 startSettingsActivity()
-            }
         } else if (v === powerMenuLite) {
             uiEventLogger.log(GlobalActionsDialogLite.GlobalActionsEvent.GA_OPEN_QS)
             globalActionsDialog.showOrHideDialog(false, true, v)
@@ -170,7 +153,7 @@ class FooterActionsController @Inject constructor(
     }
 
     private fun updateView() {
-        mView.updateEverything(isTunerEnabled(), multiUserSwitchController.isMultiUserEnabled)
+        mView.updateEverything(multiUserSwitchController.isMultiUserEnabled)
     }
 
     override fun onViewDetached() {
@@ -191,7 +174,7 @@ class FooterActionsController @Inject constructor(
     }
 
     fun disable(state2: Int) {
-        mView.disable(state2, isTunerEnabled(), multiUserSwitchController.isMultiUserEnabled)
+        mView.disable(state2, multiUserSwitchController.isMultiUserEnabled)
     }
 
     fun setExpansion(headerExpansionFraction: Float) {
@@ -213,6 +196,4 @@ class FooterActionsController @Inject constructor(
             hideFooter()
         }
     }
-
-    private fun isTunerEnabled() = tunerService.isTunerEnabled
 }
