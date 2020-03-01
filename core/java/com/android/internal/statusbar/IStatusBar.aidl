@@ -294,4 +294,5 @@ oneway interface IStatusBar
      * NAD
      */
     void toggleCameraFlash();
+    void killForegroundApp();
 }

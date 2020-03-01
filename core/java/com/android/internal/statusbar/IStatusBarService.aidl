@@ -163,4 +163,5 @@ interface IStatusBarService
      * NAD
      */
     void toggleCameraFlash();
+    void killForegroundApp();
 }
