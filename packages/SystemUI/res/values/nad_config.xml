@@ -21,7 +21,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">
-        heads_up,sync,dataswitch,aod,cpuinfo,navbar
+        heads_up,sync,dataswitch,aod,cpuinfo,navbar,fpsinfo
     </string>
 
     <!-- Color of the UDFPS pressed view -->
@@ -54,4 +54,7 @@
 
     <!-- Navigation bar dpad -->
     <string name="config_navBarLayoutHandleArrows" translatable="false">back[1.7WC];home_handle;ime_switcher[1.7WC]</string>
+
+    <!-- FPSInfoService FPS node file path -->
+    <string name="config_fpsInfoSysNode" translatable="false"></string>
 </resources>
