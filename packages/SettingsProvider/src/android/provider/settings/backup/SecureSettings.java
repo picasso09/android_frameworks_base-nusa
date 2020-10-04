@@ -199,5 +199,6 @@ public class SecureSettings {
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE_DURATION,
+        Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
     };
 }
