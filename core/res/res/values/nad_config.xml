@@ -89,7 +89,4 @@
     <!-- The list of components which should be forced to be enabled. -->
     <string-array name="config_forceEnabledComponents" translatable="false">
     </string-array>
-
-    <!-- Default value for Ambient Pulse light color -->
-    <integer name="config_ambientNotificationDefaultColor">0xFF3980FF</integer>
 </resources>
