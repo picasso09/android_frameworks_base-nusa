@@ -6419,6 +6419,18 @@ public final class Settings {
        public static final String SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND = "battery_level_charge_seek_bar";
 
         /**
+         * reTicker Status
+         * @hide
+         */
+        public static final String RETICKER_STATUS = "reticker_status";
+
+        /**
+         * reTicker Colored
+         * @hide
+         */
+        public static final String RETICKER_COLORED = "reticker_colored";
+
+        /**
          * These are all public system settings
          *
          * @hide
