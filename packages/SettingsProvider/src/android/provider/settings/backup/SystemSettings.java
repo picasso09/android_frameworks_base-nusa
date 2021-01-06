@@ -119,5 +119,6 @@ public class SystemSettings {
         Settings.System.MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD,
         Settings.System.LESS_BORING_HEADS_UP,
         Settings.System.LOCKSCREEN_BATTERY_INFO,
+        Settings.System.LOCKSCREEN_BATTERY_INFO_TEMP_UNIT,
     };
 }
