@@ -6137,6 +6137,12 @@ public final class Settings {
         public static final String NAVBAR_STYLE = "navbar_style";
 
         /**
+         * Enable and disable Artwork on background media notification
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND = "artwork_media_background";
+        
+        /**
          * Three Finger Gesture from Oppo
          * @hide
          */

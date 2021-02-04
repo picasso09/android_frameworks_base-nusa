@@ -20,6 +20,7 @@ import static android.provider.Settings.ACTION_MEDIA_CONTROLS_SETTINGS;
 
 import android.app.PendingIntent;
 import android.app.smartspace.SmartspaceAction;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -38,6 +39,11 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.net.Uri;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +54,8 @@ import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.android.internal.jank.InteractionJankMonitor;
+import com.android.internal.util.ImageUtils;
+import com.android.settingslib.Utils;
 import com.android.settingslib.widget.AdaptiveIcon;
 import com.android.systemui.R;
 import com.android.systemui.animation.ActivityLaunchAnimator;
@@ -316,6 +324,10 @@ public class MediaControlPanel {
         ConstraintSet expandedSet = mMediaViewController.getExpandedLayout();
         ConstraintSet collapsedSet = mMediaViewController.getCollapsedLayout();
 
+        boolean backgroundArtwork = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.ARTWORK_MEDIA_BACKGROUND, 0) != 0;
+        ImageView backgroundImage = (ImageView) mViewHolder.getPlayer().findViewById(R.id.bg_album_art);
+
         // Click action
         PendingIntent clickIntent = data.getClickIntent();
         if (clickIntent != null) {
@@ -353,6 +365,29 @@ public class MediaControlPanel {
             albumView.setPadding(mDevicePadding, mDevicePadding, mDevicePadding, mDevicePadding);
             albumView.setImageDrawable(deviceIcon);
         }
+ 
+        setVisibleAndAlpha(collapsedSet, R.id.album_art, hasArtwork && !backgroundArtwork);
+        setVisibleAndAlpha(expandedSet, R.id.album_art, hasArtwork && !backgroundArtwork);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager wm = mContext.getSystemService(WindowManager.class);
+        wm.getDefaultDisplay().getRealMetrics(metrics);
+        int maxWidth = metrics.widthPixels;
+
+        if (hasArtwork) {
+            backgroundImage.setImageDrawable(ImageUtils.resize(mContext, data.getArtwork().loadDrawable(mContext), maxWidth));
+            backgroundImage.setImageAlpha(185);
+            mBackgroundOutlineProvider = new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), mAlbumArtRadius);
+                }
+            };
+            backgroundImage.setClipToOutline(true);
+            backgroundImage.setOutlineProvider(mBackgroundOutlineProvider);
+        }
+        setVisibleAndAlpha(collapsedSet, R.id.bg_album_art, backgroundArtwork);
+        setVisibleAndAlpha(expandedSet, R.id.bg_album_art, backgroundArtwork);
 
         // App icon
         ImageView appIconView = mPlayerViewHolder.getAppIcon();
