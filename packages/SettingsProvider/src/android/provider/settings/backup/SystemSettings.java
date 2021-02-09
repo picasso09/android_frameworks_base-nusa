@@ -109,5 +109,6 @@ public class SystemSettings {
         Settings.System.QS_FOOTER_TEXT_SHOW,
         Settings.System.QS_FOOTER_TEXT_STRING,
         Settings.System.SHOW_FOURG_ICON,
+        Settings.System.QS_FOOTER_SERVICES_SHOW,
     };
 }

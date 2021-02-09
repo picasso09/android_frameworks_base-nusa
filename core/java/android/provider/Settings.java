@@ -6099,6 +6099,13 @@ public final class Settings {
         public static final String QS_FOOTER_TEXT_STRING = "qs_footer_text_string";
 
         /**
+         * Whether to show qs footer Running Services icon
+         * @hide
+         */
+        @Readable
+        public static final String QS_FOOTER_SERVICES_SHOW = "qs_footer_services_show";
+
+        /**
          * Whether to display 4G icon instead LTE
          * @hide
          */
