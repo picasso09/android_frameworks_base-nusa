@@ -11230,6 +11230,12 @@ public final class Settings {
                 "device_state_rotation_lock";
 
         /**
+         * Face Unlock Method
+         * @hide
+         */
+        public static final String FACE_UNLOCK_METHOD = "face_unlock_method";
+
+        /**
          * Whether tethering is allowed to use VPN upstreams
          */
         @SuppressLint("NoSettingsProvider")
