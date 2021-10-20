@@ -212,6 +212,7 @@ import com.android.internal.policy.TransitionAnimation;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.nad.ActionUtils;
+import com.android.internal.util.nad.NadUtils;
 import com.android.server.ExtconStateObserver;
 import com.android.server.ExtconUEventObserver;
 import com.android.server.GestureLauncherService;
@@ -6296,7 +6297,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 ActionUtils.toggleRingerModes(mContext);
                 break;
             case NavbarUtilities.KEY_ACTION_KILL_APP:
-                ActionUtils.killForegroundApp();
+                NadUtils.killForegroundApp();
                 break;
             case NavbarUtilities.KEY_ACTION_PARTIAL_SCREENSHOT:
                 ActionUtils.takeScreenshot(false);
