@@ -198,5 +198,6 @@ public class SecureSettings {
         Settings.Secure.TORCH_LONG_PRESS_POWER,
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
+        Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE_DURATION,
     };
 }
