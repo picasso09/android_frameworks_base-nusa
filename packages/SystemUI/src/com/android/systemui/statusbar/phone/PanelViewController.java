@@ -1309,7 +1309,7 @@ public abstract class PanelViewController {
                         onTrackingStarted();
                     }
                     if (isFullyCollapsed() && !mHeadsUpManager.hasPinnedHeadsUp()
-                            && !mStatusBar.isBouncerShowing() && !mIsSbDoubleTapEnabled) {
+                            && !mStatusBar.isBouncerShowing()) {
                         startOpening(event);
                     }
                     break;
