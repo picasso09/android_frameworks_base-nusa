@@ -29,7 +29,7 @@
         android:fitsSystemWindows="true"
         android:outlineAmbientShadowColor="@android:color/transparent"
         android:outlineSpotShadowColor="@android:color/transparent"
-        android:background="?androidprv:attr/colorSurfaceHeader"
+        android:background="@color/settingslib_colorSurfaceHeader"
         android:theme="@style/Theme.CollapsingToolbar.Settings">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -74,7 +74,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="20.0dp"
-        android:backgroundTint="?androidprv:attr/colorSurfaceHeader"
+        android:backgroundTint="@color/settingslib_colorSurfaceHeader"
         android:background="@drawable/nad_round_top"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom"
