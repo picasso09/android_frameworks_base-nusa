@@ -139,6 +139,9 @@ public class BatteryMeterViewController extends ViewController<BatteryMeterView>
             mContentResolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DO_LEFT_BATTERY_TEXT),
                     false, this, UserHandle.USER_ALL);
+            mContentResolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_SHOW_BATTERY_PERCENT_ESTIMATE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override

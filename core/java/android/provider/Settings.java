@@ -6210,6 +6210,12 @@ public final class Settings {
         public static final String BRIGHTNESS_SLIDER_POSITION = "brightness_slider_position";
 
         /**
+         * Whether to show battery estimates in QS
+         * @hide
+         */
+        public static final String QS_SHOW_BATTERY_ESTIMATE = "qs_show_battery_estimate";
+
+        /**
          * These are all public system settings
          *
          * @hide
