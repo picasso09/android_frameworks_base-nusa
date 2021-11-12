@@ -200,5 +200,6 @@ public class SecureSettings {
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE_DURATION,
         Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
+        Settings.Secure.SHOW_COMBINED_STATUS_BAR_SIGNAL_ICONS,
     };
 }
