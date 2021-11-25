@@ -5891,6 +5891,13 @@ public final class Settings {
         public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
 
         /**
+         * Whether to hide navbar pill and keyboard space.
+         * Default 0.
+         * @hide
+         */
+        public static final String FULLSCREEN_GESTURES = "fullscreen_gestures";
+
+        /**
          * These are all public system settings
          *
          * @hide
