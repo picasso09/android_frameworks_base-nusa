@@ -127,4 +127,7 @@
     <!-- Paths to fast charging status file to detect whether an oem fast charger is active -->
     <string-array name="config_oemFastChargerStatusPaths" translatable="false">
     </string-array>
+
+    <!-- NightLight FOD -->
+    <bool name="disable_fod_night_light">false</bool>
 </resources>
