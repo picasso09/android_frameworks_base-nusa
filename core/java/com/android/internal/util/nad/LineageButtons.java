@@ -27,10 +27,14 @@ import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
+
+import com.android.internal.util.nad.ActionUtils;
+import com.android.internal.util.nad.NadUtils;
 
 import java.util.List;
 
@@ -60,6 +64,18 @@ public final class LineageButtons {
         }
     }
 
+    private static final Object sInstanceLock = new Object();
+    private static LineageButtons sInstance;
+
+    public static LineageButtons getAttachedInstance(Context context) {
+        synchronized (sInstanceLock) {
+            if (sInstance != null) {
+                return sInstance;
+            }
+            return new LineageButtons(context);
+        }
+    }
+
     public LineageButtons(Context context) {
         mContext = context;
         mHandler = new ButtonHandler();
@@ -67,6 +83,7 @@ public final class LineageButtons {
 
         SettingsObserver observer = new SettingsObserver(new Handler());
         observer.observe();
+        sInstance = this;
     }
 
     public boolean handleVolumeKey(KeyEvent event, boolean isInteractive) {
@@ -141,6 +158,20 @@ public final class LineageButtons {
         }
     }
 
+    public void skipTrack() {
+        long when = SystemClock.uptimeMillis();
+        KeyEvent newEvent = new KeyEvent(when, when,
+                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
+        onSkipTrackEvent(newEvent);
+    }
+
+    public void previousTrack() {
+        long when = SystemClock.uptimeMillis();
+        KeyEvent newEvent = new KeyEvent(when, when,
+                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS, 0);
+        onSkipTrackEvent(newEvent);
+    }
+
     private int getMediaControllerPlaybackState(MediaController controller) {
         if (controller != null) {
             final PlaybackState playbackState = controller.getPlaybackState();
@@ -178,6 +209,50 @@ public final class LineageButtons {
             mVolBtnMusicControls = Settings.System.getIntForUser(
                     resolver, Settings.System.VOLUME_BUTTON_MUSIC_CONTROL, 1,
                     UserHandle.USER_CURRENT) == 1;
+        }
+    }
+
+    public void triggerAction(int action, boolean leftEdge, boolean isVerticalSwipe, Context context) {
+        switch (action) {
+            case 0: // No action
+            default:
+                break;
+            case 1: // Flashlight
+                ActionUtils.toggleCameraFlash();
+                break;
+            case 2: // Application
+                ActionUtils.launchApp(context, leftEdge, isVerticalSwipe);
+                break;
+            case 3: // Volume panel
+                ActionUtils.toggleVolumePanel(context);
+                break;
+            case 4: // Screen off
+                ActionUtils.switchScreenOff(context);
+                break;
+            case 5: // Screenshot
+                ActionUtils.takeScreenshot(true);
+                break;
+            case 6: // Notification panel
+                ActionUtils.toggleNotifications();
+                break;
+            case 7: // QS panel
+                ActionUtils.toggleQsPanel();
+                break;
+            case 8: // Clear notifications
+                ActionUtils.clearAllNotifications();
+                break;
+            case 9: // Ringer modes
+                ActionUtils.toggleRingerModes(context);
+                break;
+            case 10: // Kill app
+                NadUtils.killForegroundApp();
+                break;
+            case 11: // Skip song
+                skipTrack();
+                break;
+            case 12: // Previous song
+                previousTrack();
+                break;
         }
     }
 }
