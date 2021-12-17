@@ -340,5 +340,7 @@ public class SecureSettingsValidators {
             return true;
         });
         VALIDATORS.put(Secure.VOLUME_LINK_NOTIFICATION, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.TORCH_DOUBLE_TAP_POWER_GESTURE_ENABLED, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.TORCH_LONG_PRESS_POWER, BOOLEAN_VALIDATOR);
     }
 }
