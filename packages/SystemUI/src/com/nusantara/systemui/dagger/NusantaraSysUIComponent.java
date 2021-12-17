@@ -7,6 +7,7 @@ import com.android.systemui.dagger.SysUIComponent;
 import com.android.systemui.dagger.SystemUIModule;
 
 import com.nusantara.systemui.columbus.ColumbusModule;
+import com.nusantara.systemui.elmyra.ElmyraModule;
 import com.nusantara.systemui.keyguard.NusantaraKeyguardSliceProvider;
 import com.nusantara.systemui.smartspace.KeyguardSmartspaceController;
 
@@ -17,6 +18,7 @@ import dagger.Subcomponent;
         ColumbusModule.class,
         DefaultComponentBinder.class,
         DependencyProvider.class,
+        ElmyraModule.class,
         SystemUIModule.class,
         SystemUINusantaraBinder.class,
         NusantaraSystemUIModule.class})

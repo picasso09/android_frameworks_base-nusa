@@ -133,6 +133,7 @@ import com.google.android.systemui.assist.uihints.input.NgaInputHandler;
 import com.google.android.systemui.assist.uihints.input.TouchActionRegion;
 import com.google.android.systemui.assist.uihints.input.TouchInsideRegion;
 import com.google.android.systemui.columbus.ColumbusServiceWrapper;
+import com.google.android.systemui.elmyra.ServiceConfigurationGoogle;
 import com.google.android.systemui.smartspace.BcSmartspaceDataProvider;
 import com.google.android.systemui.smartspace.KeyguardMediaViewController;
 import com.google.android.systemui.smartspace.KeyguardZenAlarmViewController;
@@ -292,8 +293,8 @@ public abstract class NusantaraSystemUIModule {
 
     @Provides
     @SysUISingleton
-    static NusantaraServices provideNusantaraServices(Context context, UiEventLogger uiEventLogger, Lazy<ColumbusServiceWrapper> lazyB) {
-        return new NusantaraServices(context, uiEventLogger, lazyB);
+    static NusantaraServices provideNusantaraServices(Context context, UiEventLogger uiEventLogger, Lazy<ServiceConfigurationGoogle> lazy, Lazy<ColumbusServiceWrapper> lazyB) {
+        return new NusantaraServices(context, uiEventLogger, lazy, lazyB);
     }
 
     // Google
