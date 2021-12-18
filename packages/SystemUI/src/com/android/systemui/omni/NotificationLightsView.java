@@ -25,15 +25,19 @@ import android.app.WallpaperColors;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
+
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.settingslib.Utils;
 import com.android.systemui.R;
+
+import java.util.Random;
 
 public class NotificationLightsView extends RelativeLayout {
     private static final boolean DEBUG = false;
@@ -84,6 +88,8 @@ public class NotificationLightsView extends RelativeLayout {
             if (wallpaperColors != null) {
                 color = wallpaperColors.getPrimaryColor().toArgb();
             }
+        } else if (colorMode == 4) {
+            color = getRandomColor();
         }
         return color;
     }
@@ -142,5 +148,10 @@ public class NotificationLightsView extends RelativeLayout {
         });
         if (DEBUG) Log.d(TAG, "start");
         mLightAnimator.start();
+    }
+
+    public int getRandomColor(){
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 }
