@@ -107,6 +107,7 @@ import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.ExtensionController;
+import com.android.systemui.statusbar.policy.GameSpaceManager;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
@@ -231,6 +232,7 @@ public interface StatusBarPhoneModule {
             StatusBarLocationPublisher locationPublisher,
             StatusBarIconController statusBarIconController,
             StatusBarHideIconsForBouncerManager statusBarHideIconsForBouncerManager,
+            GameSpaceManager gameSpaceManager,
             LockscreenShadeTransitionController transitionController,
             FeatureFlags featureFlags,
             KeyguardUnlockAnimationController keyguardUnlockAnimationController,
@@ -333,6 +335,7 @@ public interface StatusBarPhoneModule {
                 locationPublisher,
                 statusBarIconController,
                 statusBarHideIconsForBouncerManager,
+                gameSpaceManager,
                 transitionController,
                 featureFlags,
                 keyguardUnlockAnimationController,

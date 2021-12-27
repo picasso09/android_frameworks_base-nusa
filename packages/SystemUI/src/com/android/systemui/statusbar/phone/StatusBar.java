@@ -235,6 +235,7 @@ import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController.DeviceProvisionedListener;
 import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.ExtensionController;
+import com.android.systemui.statusbar.policy.GameSpaceManager;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
@@ -518,6 +519,7 @@ public class StatusBar extends SystemUI implements
     private final StatusBarLocationPublisher mStatusBarLocationPublisher;
     private final StatusBarIconController mStatusBarIconController;
     private final StatusBarHideIconsForBouncerManager mStatusBarHideIconsForBouncerManager;
+    protected GameSpaceManager mGameSpaceManager;
 
     protected TaskHelper mTaskHelper;
 
@@ -789,6 +791,7 @@ public class StatusBar extends SystemUI implements
             StatusBarLocationPublisher locationPublisher,
             StatusBarIconController statusBarIconController,
             StatusBarHideIconsForBouncerManager statusBarHideIconsForBouncerManager,
+            GameSpaceManager gameSpaceManager,
             LockscreenShadeTransitionController lockscreenShadeTransitionController,
             FeatureFlags featureFlags,
             KeyguardUnlockAnimationController keyguardUnlockAnimationController,
@@ -889,6 +892,7 @@ public class StatusBar extends SystemUI implements
         mStatusBarLocationPublisher = locationPublisher;
         mStatusBarIconController = statusBarIconController;
         mStatusBarHideIconsForBouncerManager = statusBarHideIconsForBouncerManager;
+        mGameSpaceManager = gameSpaceManager;
         mFeatureFlags = featureFlags;
         mKeyguardUnlockAnimationController = keyguardUnlockAnimationController;
         mMainHandler = mainHandler;
@@ -970,6 +974,8 @@ public class StatusBar extends SystemUI implements
 
         mKeyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
         mWallpaperSupported = mWallpaperManager.isWallpaperSupported();
+
+        mGameSpaceManager.observe();
 
         RegisterStatusBarResult result = null;
         try {
@@ -4255,6 +4261,10 @@ public class StatusBar extends SystemUI implements
 
     boolean isTransientShown() {
         return mTransientShown;
+    }
+
+    public GameSpaceManager getGameSpaceManager() {
+        return mGameSpaceManager;
     }
 
     private void updateLightRevealScrimVisibility() {
