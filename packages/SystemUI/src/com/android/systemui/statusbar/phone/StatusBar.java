@@ -791,7 +791,6 @@ public class StatusBar extends SystemUI implements
             StatusBarLocationPublisher locationPublisher,
             StatusBarIconController statusBarIconController,
             StatusBarHideIconsForBouncerManager statusBarHideIconsForBouncerManager,
-            GameSpaceManager gameSpaceManager,
             LockscreenShadeTransitionController lockscreenShadeTransitionController,
             FeatureFlags featureFlags,
             KeyguardUnlockAnimationController keyguardUnlockAnimationController,
@@ -892,7 +891,6 @@ public class StatusBar extends SystemUI implements
         mStatusBarLocationPublisher = locationPublisher;
         mStatusBarIconController = statusBarIconController;
         mStatusBarHideIconsForBouncerManager = statusBarHideIconsForBouncerManager;
-        mGameSpaceManager = gameSpaceManager;
         mFeatureFlags = featureFlags;
         mKeyguardUnlockAnimationController = keyguardUnlockAnimationController;
         mMainHandler = mainHandler;
@@ -932,6 +930,7 @@ public class StatusBar extends SystemUI implements
                 data -> mCommandQueueCallbacks.animateExpandSettingsPanel(data.mSubpanel));
         mMessageRouter.subscribeTo(MSG_LAUNCH_TRANSITION_TIMEOUT,
                 id -> onLaunchTransitionTimeout());
+        mGameSpaceManager = new GameSpaceManager(mContext);
     }
 
     @Override
@@ -974,8 +973,6 @@ public class StatusBar extends SystemUI implements
 
         mKeyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
         mWallpaperSupported = mWallpaperManager.isWallpaperSupported();
-
-        mGameSpaceManager.observe();
 
         RegisterStatusBarResult result = null;
         try {
@@ -1428,6 +1425,7 @@ public class StatusBar extends SystemUI implements
         filter.addAction(DevicePolicyManager.ACTION_SHOW_DEVICE_MONITORING_DIALOG);
         filter.addAction(NotificationPanelViewController.CANCEL_NOTIFICATION_PULSE_ACTION);
         mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, filter, null, UserHandle.ALL);
+        mGameSpaceManager.observe();
     }
 
     protected QS createDefaultQSFragment() {

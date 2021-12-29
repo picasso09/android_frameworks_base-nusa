@@ -71,7 +71,6 @@ import com.android.systemui.statusbar.phone.ongoingcall.OngoingCallController;
 import com.android.systemui.statusbar.phone.ongoingcall.OngoingCallLogger;
 import com.android.systemui.statusbar.policy.RemoteInputUriController;
 import com.android.systemui.statusbar.window.StatusBarWindowController;
-import com.android.systemui.statusbar.policy.GameSpaceManager;
 import com.android.systemui.tracing.ProtoTracer;
 import com.android.systemui.util.concurrency.DelayableExecutor;
 import com.android.systemui.util.time.SystemClock;
@@ -250,13 +249,6 @@ public interface StatusBarDependenciesModule {
     @Binds
     StatusBarIconController provideStatusBarIconController(
             StatusBarIconControllerImpl controllerImpl);
-
-    /** */
-    @SysUISingleton
-    @Provides
-    static GameSpaceManager provideGameSpaceManager(Context context) {
-        return new GameSpaceManager(context);
-    }
 
     /**
      */
