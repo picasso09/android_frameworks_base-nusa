@@ -5558,12 +5558,6 @@ public final class Settings {
          */
 
         /**
-         * Whether to show arrow keys in navigation bar
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
-
-        /**
          * Show or hide clock
          * 0 - hide
          * 1 - show (default)
