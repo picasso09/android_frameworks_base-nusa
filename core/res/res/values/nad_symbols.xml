@@ -66,4 +66,7 @@
     
     <!-- Custom notification light -->
     <java-symbol type="bool" name="config_multicolorled" />
+
+    <!-- Whether to cancel fingerprint operation if not idle -->
+    <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
 </resources>
