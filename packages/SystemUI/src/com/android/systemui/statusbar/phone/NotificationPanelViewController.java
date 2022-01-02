@@ -4211,6 +4211,11 @@ public class NotificationPanelViewController extends PanelViewController {
                 /* notifyForDescendants */ false,
                 mSettingsChangeObserver
         );
+        mContentResolver.registerContentObserver(
+                Settings.System.getUriFor(Settings.System.LOCKSCREEN_SMALL_CLOCK),
+                /* notifyForDescendants */ false,
+                mSettingsChangeObserver
+        );
     }
 
     private void unregisterSettingsChangeListener() {
@@ -4572,6 +4577,8 @@ public class NotificationPanelViewController extends PanelViewController {
 
             // Can affect multi-user switcher visibility
             reInflateViews();
+            // To update forcing small clock on keyguard
+            positionClockAndNotifications();
         }
     }
 

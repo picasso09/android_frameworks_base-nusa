@@ -6112,6 +6112,13 @@ public final class Settings {
         public static final String SHOW_FOURG_ICON = "show_fourg_icon";
 
         /**
+         * Whether to force small clock on keyguard
+         * @hide
+         */
+        @Readable
+        public static final String LOCKSCREEN_SMALL_CLOCK = "lockscreen_small_clock";
+
+        /**
          * These are all public system settings
          *
          * @hide
