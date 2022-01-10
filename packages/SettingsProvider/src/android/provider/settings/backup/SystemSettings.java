@@ -129,5 +129,6 @@ public class SystemSettings {
         Settings.System.ENABLE_UDFPS_START_HAPTIC_FEEDBACK,
         Settings.System.SCREEN_OFF_FOD,
         Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
+        Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
     };
 }
