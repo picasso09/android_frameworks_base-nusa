@@ -125,5 +125,6 @@ public class SystemSettings {
         Settings.System.HEADS_UP_TIMEOUT,
         Settings.System.HEADS_UP_BLACKLIST_VALUES,
         Settings.System.STATUS_BAR_SHOW_ACTIVITY_INDICATORS,
+        Settings.System.ENABLE_RIPPLE_EFFECT,
     };
 }
