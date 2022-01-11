@@ -109,7 +109,10 @@ public class PixelPropsUtils {
         if (packageName == null) {
             return;
         }
-        if ((packageName.startsWith("com.google.") || packageName.startsWith("com.chrome.") && !Arrays.asList(packagesToKeep).contains(packageName))
+        if (Arrays.asList(packagesToKeep).contains(packageName)) {
+            return;
+        }
+        if (packageName.startsWith("com.google.") || packageName.startsWith("com.chrome.")
                 || Arrays.asList(extraPackagesToChange).contains(packageName)) {
             Map<String, Object> propsToChange = propsToChangePixel6;
 
