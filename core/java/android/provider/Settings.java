@@ -6156,6 +6156,12 @@ public final class Settings {
                 "lockscreen_quick_unlock_control";
 
         /**
+         * Whether to disable qs on secure lockscreen.
+         * @hide
+         */
+        public static final String SECURE_LOCKSCREEN_QS_DISABLED = "secure_lockscreen_qs_disabled";
+
+        /**
          * These are all public system settings
          *
          * @hide
