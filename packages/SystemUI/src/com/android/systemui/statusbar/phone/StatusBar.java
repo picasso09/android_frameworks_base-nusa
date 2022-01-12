@@ -930,7 +930,8 @@ public class StatusBar extends SystemUI implements
                 data -> mCommandQueueCallbacks.animateExpandSettingsPanel(data.mSubpanel));
         mMessageRouter.subscribeTo(MSG_LAUNCH_TRANSITION_TIMEOUT,
                 id -> onLaunchTransitionTimeout());
-        mGameSpaceManager = new GameSpaceManager(mContext);
+
+        mGameSpaceManager = new GameSpaceManager(mContext, mKeyguardStateController);
     }
 
     @Override
