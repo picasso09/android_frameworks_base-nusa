@@ -11484,6 +11484,18 @@ public final class Settings {
         public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
 
         /**
+         * Whether to show privacy indicator for camera
+         * @hide
+         */
+        public static final String ENABLE_CAMERA_PRIVACY_INDICATOR = "enable_camera_privacy_indicator";
+
+        /**
+         * Whether to show privacy indicator for location
+         * @hide
+         */
+        public static final String ENABLE_LOCATION_PRIVACY_INDICATOR = "enable_location_privacy_indicator";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -11619,13 +11631,6 @@ public final class Settings {
          * @hide
          */
         public static final String TORCH_LONG_PRESS_POWER = "torch_long_press_power";
-
-        /**
-         * Whether to show privacy indicator for location
-         * Default value is based on it's device config flag
-         * @hide
-         */
-        public static final String ENABLE_LOCATION_PRIVACY_INDICATOR = "enable_location_privacy_indicator";
 
         /**
          * Gesture navbar length mode.
