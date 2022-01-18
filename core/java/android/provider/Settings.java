@@ -5981,6 +5981,12 @@ public final class Settings {
         public static final String TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
 
         /**
+         * Force full screen for devices with cutout
+         * @hide
+         */
+        public static final String FORCE_FULLSCREEN_CUTOUT_APPS = "force_full_screen_cutout_apps";
+
+        /**
          * These are all public system settings
          *
          * @hide
@@ -6121,6 +6127,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_ENABLED);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_TX);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_RX);
+            PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
         }
 
         /**
