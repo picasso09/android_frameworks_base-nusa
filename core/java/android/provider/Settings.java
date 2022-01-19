@@ -6333,6 +6333,13 @@ public final class Settings {
         public static final String FOD_NIGHT_LIGHT = "fod_night_light";
 
         /**
+         * Whether to play haptic feedback on udfps finger down event.
+         * Default 1
+         * @hide
+         */
+        public static final String ENABLE_UDFPS_START_HAPTIC_FEEDBACK = "enable_udfps_start_haptic_feedback";
+
+        /**
          * These are all public system settings
          *
          * @hide
