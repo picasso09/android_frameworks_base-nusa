@@ -45,19 +45,13 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
 
     private final QSCarrierGroupController mQSCarrierGroupController;
     private final QuickQSPanelController mQuickQSPanelController;
-    private final Clock mClockView;
     private final StatusBarIconController mStatusBarIconController;
-    private final DemoModeController mDemoModeController;
     private final StatusIconContainer mIconContainer;
     private final StatusBarIconController.TintedIconManager mIconManager;
-    private final DemoMode mDemoModeReceiver;
     private final QSExpansionPathInterpolator mQSExpansionPathInterpolator;
     private final BatteryMeterViewController mBatteryMeterViewController;
     private final FeatureFlags mFeatureFlags;
     private final StatusBarContentInsetsProvider mInsetsProvider;
-
-    private final VariableDateViewController mVariableDateViewControllerDateView;
-    private final VariableDateViewController mVariableDateViewControllerClockDateView;
     private final HeaderPrivacyIconsController mPrivacyIconsController;
 
     private boolean mListening;
@@ -77,7 +71,6 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
         super(view);
         mPrivacyIconsController = headerPrivacyIconsController;
         mStatusBarIconController = statusBarIconController;
-        mDemoModeController = demoModeController;
         mQuickQSPanelController = quickQSPanelController;
         mQSExpansionPathInterpolator = qsExpansionPathInterpolator;
         mBatteryMeterViewController = batteryMeterViewController;
@@ -87,17 +80,13 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
         mQSCarrierGroupController = qsCarrierGroupControllerBuilder
                 .setQSCarrierGroup(mView.findViewById(R.id.carrier_group))
                 .build();
-        mClockView = mView.findViewById(R.id.clock);
         mIconContainer = mView.findViewById(R.id.statusIcons);
-        mVariableDateViewControllerDateView = variableDateViewControllerFactory.create(
-                mView.requireViewById(R.id.date)
-        );
-        mVariableDateViewControllerClockDateView = variableDateViewControllerFactory.create(
-                mView.requireViewById(R.id.date_clock)
-        );
 
         mIconManager = new StatusBarIconController.TintedIconManager(mIconContainer, featureFlags);
-        mDemoModeReceiver = new ClockDemoModeReceiver(mClockView);
+        mCameraSlot = getResources().getString(com.android.internal.R.string.status_bar_camera);
+        mMicSlot = getResources().getString(com.android.internal.R.string.status_bar_microphone);
+        mLocationSlot = getResources().getString(com.android.internal.R.string.status_bar_location);
+
     }
 
     @Override
@@ -134,10 +123,7 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
         mView.onAttach(mIconManager, mQSExpansionPathInterpolator, rssiIgnoredSlots,
                 mFeatureFlags.useCombinedQSHeaders(), mInsetsProvider);
 
-        mDemoModeController.addCallback(mDemoModeReceiver);
 
-        mVariableDateViewControllerDateView.init();
-        mVariableDateViewControllerClockDateView.init();
     }
 
     @Override
@@ -145,7 +131,6 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
         mPrivacyIconsController.onParentInvisible();
         mStatusBarIconController.removeIconGroup(mIconManager);
         mQSCarrierGroupController.setOnSingleCarrierChangedListener(null);
-        mDemoModeController.removeCallback(mDemoModeReceiver);
         setListening(false);
     }
 
@@ -180,33 +165,5 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
 
     public void setContentMargins(int marginStart, int marginEnd) {
         mQuickQSPanelController.setContentMargins(marginStart, marginEnd);
-    }
-
-    private static class ClockDemoModeReceiver implements DemoMode {
-        private Clock mClockView;
-
-        @Override
-        public List<String> demoCommands() {
-            return List.of(COMMAND_CLOCK);
-        }
-
-        ClockDemoModeReceiver(Clock clockView) {
-            mClockView = clockView;
-        }
-
-        @Override
-        public void dispatchDemoCommand(String command, Bundle args) {
-            mClockView.dispatchDemoCommand(command, args);
-        }
-
-        @Override
-        public void onDemoModeStarted() {
-            mClockView.onDemoModeStarted();
-        }
-
-        @Override
-        public void onDemoModeFinished() {
-            mClockView.onDemoModeFinished();
-        }
     }
 }

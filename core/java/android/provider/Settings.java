@@ -5896,6 +5896,7 @@ public final class Settings {
          * @hide
          */
         public static final String FP_ERROR_VIBRATE = "fingerprint_error_vib";
+
         /**
          * Whether to enable PULSE Edge lights
          * @hide
