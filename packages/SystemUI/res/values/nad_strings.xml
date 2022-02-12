@@ -107,4 +107,7 @@
     <string name="accessibility_quick_settings_caffeine_on">Caffeine on</string>
 
     <string name="status_bar_call_strength">Call strength</string>
+
+    <!-- Face Unlock -->
+    <string name="face_unlock_recognizing">Recognizing face...</string>
 </resources>
