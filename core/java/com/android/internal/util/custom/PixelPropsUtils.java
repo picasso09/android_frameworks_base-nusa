@@ -37,9 +37,14 @@ public class PixelPropsUtils {
 
     private static final Map<String, Object> propsToChangePixel5;
     private static final String[] packagesToChangePixel5 = {
-            "com.google.android.tts",
+            "com.google.android.apps.recorder",
+            "com.google.android.apps.translate",
+            "com.google.android.apps.turbo",
+            "com.google.android.apps.turboadapter",
+            "com.google.android.apps.wearables.maestro.companion",
             "com.google.android.googlequicksearchbox",
-            "com.google.android.apps.recorder"
+            "com.google.android.tts",
+            "com.google.audio.hearing.visualization.accessibility.scribe"
     };
 
     private static final Map<String, Object> propsToChangePixelXL;
