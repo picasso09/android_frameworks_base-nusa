@@ -46,7 +46,7 @@ import com.android.systemui.navigationbar.buttons.ReverseLinearLayout.ReverseRel
 import com.android.systemui.omni.OmniSettingsService;
 import com.android.systemui.recents.OverviewProxyService;
 import com.android.systemui.shared.system.QuickStepContract;
-
+import com.android.systemui.statusbar.policy.ConfigurationController.ConfigurationListener;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -55,7 +55,7 @@ import java.util.Objects;
 
 public class NavigationBarInflaterView extends FrameLayout
         implements NavigationModeController.ModeChangedListener, Tunable,
-        OmniSettingsService.OmniSettingsObserver {
+        OmniSettingsService.OmniSettingsObserver, ConfigurationListener {
 
     private static final String TAG = "NavBarInflater";
 
@@ -203,6 +203,11 @@ public class NavigationBarInflaterView extends FrameLayout
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateLayoutInversion();
+    }
+
+    @Override
+    public void onThemeChanged() {
+        onLikelyDefaultLayoutChange();
     }
 
     public void setNavigationBarLayout(String layoutValue) {
