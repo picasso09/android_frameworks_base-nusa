@@ -111,5 +111,6 @@ public class SystemSettings {
         Settings.System.SHOW_FOURG_ICON,
         Settings.System.QS_FOOTER_SERVICES_SHOW,
         Settings.System.LOCKSCREEN_SMALL_CLOCK,
+        Settings.System.USE_OLD_MOBILETYPE,
     };
 }
