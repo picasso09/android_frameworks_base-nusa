@@ -108,5 +108,6 @@ public class SystemSettings {
         Settings.System.NAVIGATION_BAR_ARROW_KEYS,
         Settings.System.QS_FOOTER_TEXT_SHOW,
         Settings.System.QS_FOOTER_TEXT_STRING,
+        Settings.System.SHOW_FOURG_ICON,
     };
 }
