@@ -2,7 +2,6 @@ package com.nusantara.systemui;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Handler;
 
 import com.nusantara.systemui.dagger.NusantaraGlobalRootComponent;
 import com.nusantara.systemui.dagger.NusantaraSysUIComponent;
