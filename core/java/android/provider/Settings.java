@@ -6130,6 +6130,12 @@ public final class Settings {
         public static final String CLICK_PARTIAL_SCREENSHOT = "click_partial_screenshot";
 
         /**
+         * Navbar style
+         * @hide
+         */
+        public static final String NAVBAR_STYLE = "navbar_style";
+
+        /**
          * These are all public system settings
          *
          * @hide
