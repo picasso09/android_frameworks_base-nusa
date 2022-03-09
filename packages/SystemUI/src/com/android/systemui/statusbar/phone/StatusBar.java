@@ -441,6 +441,11 @@ public class StatusBar extends SystemUI implements
     }
 
     /** */
+    public void toggleCameraFlash() {
+        mCommandQueueCallbacks.toggleCameraFlash();
+    }
+
+    /** */
     public void animateCollapsePanels(int flags, boolean force) {
         mCommandQueueCallbacks.animateCollapsePanels(flags, force);
     }
@@ -2037,14 +2042,6 @@ public class StatusBar extends SystemUI implements
         visibilityChanged(true);
         mCommandQueue.recomputeDisableFlags(mDisplayId, !force /* animate */);
         setInteracting(StatusBarManager.WINDOW_STATUS_BAR, true);
-    }
-
-    protected void toggleCameraFlash() {
-        if (mFlashlightController != null
-                && mFlashlightController.hasFlashlight()
-                && mFlashlightController.isAvailable()) {
-            mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
-        }
     }
 
     protected void toggleSettingsPanel() {
