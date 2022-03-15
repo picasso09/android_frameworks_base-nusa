@@ -23,6 +23,7 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,9 +37,9 @@ public class PixelPropsUtils {
     private static final boolean DEBUG = false;
 
     private static final Map<String, Object> propsToChangePixel6;
+
     private static final Map<String, Object> propsToChangePixel5;
     private static final String[] packagesToChangePixel5 = {
-            "com.google.android.apps.photos",
             "com.google.android.apps.recorder",
             "com.google.android.apps.translate",
             "com.google.android.apps.turbo",
@@ -48,9 +49,10 @@ public class PixelPropsUtils {
             "com.google.android.tts",
             "com.google.audio.hearing.visualization.accessibility.scribe"
     };
-    
+
     private static final Map<String, Object> propsToChangePixelXL;
     private static final String[] packagesToChangePixelXL = {
+            "com.google.android.apps.photos",
             "com.samsung.accessory",
             "com.samsung.accessory.fridaymgr",
             "com.samsung.accessory.berrymgr",
@@ -131,7 +133,7 @@ public class PixelPropsUtils {
     }
 
     public static void setProps(String packageName) {
-        if (packageName == null){
+        if (packageName == null) {
             return;
         }
         if (packageName.equals(PACKAGE_GMS)) {
@@ -146,28 +148,16 @@ public class PixelPropsUtils {
         if (!isPixelDevice &&
             ((packageName.startsWith("com.google.") || packageName.startsWith("com.chrome.") && !Arrays.asList(packagesToKeep).contains(packageName))
                 || Arrays.asList(extraPackagesToChange).contains(packageName))) {
-
-            if (packageName.equals("com.google.android.apps.photos")) {
-                if (!SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true))
-                    return;
-            }
-
             Map<String, Object> propsToChange = propsToChangePixel6;
 
             if (Arrays.asList(packagesToChangePixel5).contains(packageName)) {
-                if (packageName.equals("com.google.android.apps.photos")) {
-                    if (!SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true))
-                        return;
-                }
                 propsToChange = propsToChangePixel5;
             }
   
-            if ((Arrays.asList(packagesToChangePixelXL).contains(packageName))
-                    || (packageName.equals("com.google.android.apps.photos"))) {
-                if ((packageName.equals("com.google.android.apps.photos")
-                        && !SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true))) {
-                    return;
-                }
+            if (Arrays.asList(packagesToChangePixelXL).contains(packageName)) {
+                final String sysPropSpoof = SystemProperties.get("persist.sys.photo", "1");
+                boolean dontSpoof = ("0".equals(sysPropSpoof)) ? true : false;
+                if (dontSpoof && packageName.equals("com.google.android.apps.photos")) return;
                 propsToChange = propsToChangePixelXL;
             }
 
@@ -175,7 +165,7 @@ public class PixelPropsUtils {
             for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
                 String key = prop.getKey();
                 Object value = prop.getValue();
-                if (propsToKeep.containsKey(packageName) && propsToKeep.get(packageName).contains(key)){
+                if (propsToKeep.containsKey(packageName) && propsToKeep.get(packageName).contains(key)) {
                     if (DEBUG) Log.d(TAG, "Not defining " + key + " prop for: " + packageName);
                     continue;
                 }
@@ -194,7 +184,7 @@ public class PixelPropsUtils {
         }
     }
 
-    private static void setPropValue(String key, Object value){
+    private static void setPropValue(String key, Object value) {
         try {
             if (DEBUG) Log.d(TAG, "Defining prop " + key + " to " + value.toString());
             Field field = Build.class.getDeclaredField(key);

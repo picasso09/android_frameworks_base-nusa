@@ -708,58 +708,43 @@ public class ApplicationPackageManager extends PackageManager {
                 }
             };
 
-    private static final String DEVICE = "ro.nad.device";
-
-    private static final String[] pixel6Codenames = {
-            "oriole",
-            "raven",
-    };
-
-    private static final String[] featuresPixel = {
+    private static final String[] featuresBlacklist = {
             "com.google.android.apps.photos.PIXEL_2019_PRELOAD",
             "com.google.android.apps.photos.PIXEL_2019_MIDYEAR_PRELOAD",
             "com.google.android.apps.photos.PIXEL_2018_PRELOAD",
             "com.google.android.apps.photos.PIXEL_2017_PRELOAD",
+            "com.google.android.feature.PIXEL_2021_EXPERIENCE",
             "com.google.android.feature.PIXEL_2021_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2020_EXPERIENCE",
             "com.google.android.feature.PIXEL_2020_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2019_EXPERIENCE",
             "com.google.android.feature.PIXEL_2019_MIDYEAR_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2018_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2017_EXPERIENCE",
-            "com.google.android.feature.PIXEL_EXPERIENCE",
-            "com.google.android.feature.GOOGLE_BUILD",
-            "com.google.android.feature.GOOGLE_EXPERIENCE"
+            "com.google.android.feature.PIXEL_2017_EXPERIENCE"
     };
 
-    private static final String[] featuresPixel6 = {
-            "com.google.android.feature.PIXEL_2021_EXPERIENCE"
-    };
-
-    private static final String[] featuresNexus = {
+    private static final String[] featuresWhitelist = {
             "com.google.android.apps.photos.NEXUS_PRELOAD",
-            "com.google.android.apps.photos.nexus_preload",
-            "com.google.android.feature.PIXEL_EXPERIENCE",
-            "com.google.android.feature.GOOGLE_BUILD",
-            "com.google.android.feature.GOOGLE_EXPERIENCE"
+            "com.google.android.apps.photos.nexus_preload"
     };
+
+    private boolean useSpoofingForPhotos() {
+        final String useSpoof = SystemProperties.get("persist.sys.photo", "1");
+        boolean value = ("1".equals(useSpoof)) ? true : false;
+        return value;
+    }
 
     @Override
     public boolean hasSystemFeature(String name, int version) {
-        boolean isPixel6Device = Arrays.asList(pixel6Codenames).contains(SystemProperties.get(DEVICE));
-        String packageName = ActivityThread.currentPackageName();
-        if (packageName != null &&
-                packageName.equals("com.google.android.apps.photos") &&
-                SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true)) {
-            if (Arrays.asList(featuresPixel).contains(name)) return false;
-            if (Arrays.asList(featuresNexus).contains(name)) return true;
-        }
-        if (isPixel6Device) {
-            if (Arrays.asList(featuresPixel6).contains(name)) return true;
+        if (useSpoofingForPhotos()) {
+            String packageName = ActivityThread.currentPackageName();
+            if (packageName != null) {
+                if (packageName.contains("com.google.android.apps.photos") &&
+                        Arrays.asList(featuresBlacklist).contains(name)) return false;
+            }
+            if (Arrays.asList(featuresWhitelist).contains(name)) return true;
         } else {
-            if (Arrays.asList(featuresPixel6).contains(name)) return false;
+            if (Arrays.asList(featuresBlacklist).contains(name)) return true;
         }
-        if (Arrays.asList(featuresPixel).contains(name)) return true;
         return mHasSystemFeatureCache.query(new HasSystemFeatureQuery(name, version));
     }
 
