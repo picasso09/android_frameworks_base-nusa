@@ -32,7 +32,6 @@ public class PixelPropsUtils {
 
     public static final String PACKAGE_GMS = "com.google.android.gms";
     public static final String PACKAGE_NETFLIX = "com.netflix.mediaclient";
-    private static final String DEVICE = "ro.nad.device";
     private static final String TAG = PixelPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
 
@@ -90,20 +89,6 @@ public class PixelPropsUtils {
             "com.google.ar.core"
     };
 
-    // Codenames for currently supported Pixels by Google
-    private static final String[] pixelCodenames = {
-            "oriole",
-            "raven",
-            "redfin",
-            "barbet",
-            "bramble",
-            "sunfish",
-            "coral",
-            "flame",
-            "bonito",
-            "sargo"
-    };
-
     private static volatile boolean sIsGms = false;
 
     static {
@@ -144,12 +129,9 @@ public class PixelPropsUtils {
             if (DEBUG) Log.d(TAG, "Netflix spoofing disabled by system prop");
             return;
         }
-        boolean isPixelDevice = Arrays.asList(pixelCodenames).contains(SystemProperties.get(DEVICE));
-        if (!isPixelDevice &&
-            ((packageName.startsWith("com.google.") || packageName.startsWith("com.chrome.") && !Arrays.asList(packagesToKeep).contains(packageName))
-                || Arrays.asList(extraPackagesToChange).contains(packageName))) {
+        if ((packageName.startsWith("com.google.") && !Arrays.asList(packagesToKeep).contains(packageName))
+                || Arrays.asList(extraPackagesToChange).contains(packageName)) {
             Map<String, Object> propsToChange = propsToChangePixel6;
-
             if (Arrays.asList(packagesToChangePixel5).contains(packageName)) {
                 propsToChange = propsToChangePixel5;
             }
@@ -171,11 +153,6 @@ public class PixelPropsUtils {
                 }
                 if (DEBUG) Log.d(TAG, "Defining " + key + " prop for: " + packageName);
                 setPropValue(key, value);
-            }
-            if (isPixelDevice) {
-                if (packageName.equals(PACKAGE_GMS)) {
-                    setPropValue("MODEL", Build.MODEL + " ");
-                }
             }
             // Set proper indexing fingerprint
             if (packageName.equals("com.google.android.settings.intelligence")) {
