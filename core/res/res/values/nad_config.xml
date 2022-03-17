@@ -92,9 +92,6 @@
     <string-array name="config_forceEnabledComponents" translatable="false">
     </string-array>
 
-    <!-- Minimum distance to swipe down with three fingers to trigger screenshot action -->
-    <integer name="config_threeFingerSwipeDistance">350</integer>
-
     <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
     <string name="config_oemFastChargerStatusPath" translatable="false"></string>
 
