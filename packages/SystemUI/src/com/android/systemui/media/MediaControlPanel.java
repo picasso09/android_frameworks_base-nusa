@@ -20,8 +20,8 @@ import static android.provider.Settings.ACTION_MEDIA_CONTROLS_SETTINGS;
 
 import android.app.PendingIntent;
 import android.app.smartspace.SmartspaceAction;
-import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -29,20 +29,21 @@ import android.content.res.ColorStateList;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Rect;
+import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
+import android.net.Uri;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.os.Process;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.net.Uri;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -55,8 +56,8 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.android.internal.jank.InteractionJankMonitor;
 import com.android.internal.util.ImageUtils;
-import com.android.settingslib.Utils;
 import com.android.settingslib.widget.AdaptiveIcon;
+import com.android.settingslib.Utils;
 import com.android.systemui.R;
 import com.android.systemui.animation.ActivityLaunchAnimator;
 import com.android.systemui.animation.GhostedViewLaunchAnimatorController;
@@ -122,6 +123,9 @@ public class MediaControlPanel {
     private int mBackgroundColor;
     private int mDevicePadding;
     private int mAlbumArtSize;
+    private int mAlbumArtRadius;
+    // This will provide the corners for the album art.
+    private final ViewOutlineProvider mViewOutlineProvider;
     // Instance id for logging purpose.
     protected int mInstanceId = -1;
     // Uid for the media app.
@@ -133,6 +137,8 @@ public class MediaControlPanel {
     // Used for swipe-to-dismiss logging.
     protected boolean mIsImpressed = false;
     private SystemClock mSystemClock;
+    
+    private ViewOutlineProvider mBackgroundOutlineProvider;
 
     /**
      * Initialize a new control panel
@@ -160,6 +166,13 @@ public class MediaControlPanel {
         mSystemClock = systemClock;
 
         loadDimens();
+        
+        mViewOutlineProvider = new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, mAlbumArtSize, mAlbumArtSize, mAlbumArtRadius);
+            }
+        };
 
         mSeekBarViewModel.setLogSmartspaceClick(() -> {
             logSmartspaceCardReported(
@@ -181,6 +194,8 @@ public class MediaControlPanel {
         mAlbumArtSize = mContext.getResources().getDimensionPixelSize(R.dimen.qs_media_album_size);
         mDevicePadding = mContext.getResources()
                 .getDimensionPixelSize(R.dimen.qs_media_album_device_padding);
+        mAlbumArtRadius = mContext.getResources().getDimensionPixelSize(
+                Utils.getThemeAttr(mContext, android.R.attr.dialogCornerRadius));
     }
 
     /**
@@ -326,7 +341,7 @@ public class MediaControlPanel {
 
         boolean backgroundArtwork = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.ARTWORK_MEDIA_BACKGROUND, 0) != 0;
-        ImageView backgroundImage = (ImageView) mViewHolder.getPlayer().findViewById(R.id.bg_album_art);
+        ImageView backgroundImage = (ImageView) mPlayerViewHolder.getPlayer().findViewById(R.id.bg_album_art);
 
         // Click action
         PendingIntent clickIntent = data.getClickIntent();
@@ -365,7 +380,7 @@ public class MediaControlPanel {
             albumView.setPadding(mDevicePadding, mDevicePadding, mDevicePadding, mDevicePadding);
             albumView.setImageDrawable(deviceIcon);
         }
- 
+
         setVisibleAndAlpha(collapsedSet, R.id.album_art, hasArtwork && !backgroundArtwork);
         setVisibleAndAlpha(expandedSet, R.id.album_art, hasArtwork && !backgroundArtwork);
 

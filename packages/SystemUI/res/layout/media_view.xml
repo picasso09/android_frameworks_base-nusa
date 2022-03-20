@@ -210,6 +210,9 @@
     <com.android.internal.widget.CachingIconView
         android:id="@+id/icon"
         style="@style/MediaPlayer.AppIcon"
+        android:gravity="top|end"
+        android:layout_marginTop="@dimen/qs_media_padding"
+        android:layout_marginEnd="@dimen/qs_media_padding"
         android:layout_width="@dimen/qs_media_icon_size"
         android:layout_height="@dimen/qs_media_icon_size" />
 
