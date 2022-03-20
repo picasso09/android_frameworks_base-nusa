@@ -6143,6 +6143,12 @@ public final class Settings {
         public static final String ARTWORK_MEDIA_BACKGROUND = "artwork_media_background";
         
         /**
+         * force expand qs media player
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_FORCE_EXPAND = "artwork_media_force_expand";
+        
+        /**
          * The fade level of Artwork on background media notification
          * requires ARTWORK_MEDIA_BACKGROUND to be enabled
          * @hide
