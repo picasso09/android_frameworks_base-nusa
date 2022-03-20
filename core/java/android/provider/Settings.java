@@ -6072,6 +6072,12 @@ public final class Settings {
         public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
 
         /**
+         * force expand qs media player
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_FORCE_EXPAND = "artwork_media_force_expand";
+
+        /**
          * Whether to pulse ambient on new music tracks
          * @hide
          */
