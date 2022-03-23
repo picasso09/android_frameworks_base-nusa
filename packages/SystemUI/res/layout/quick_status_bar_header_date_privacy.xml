@@ -19,20 +19,20 @@
     xmlns:systemui="http://schemas.android.com/apk/res-auto"
     android:id="@+id/quick_status_bar_date_privacy"
     android:layout_width="match_parent"
-    android:layout_height="@*android:dimen/quick_qs_offset_height"
+    android:layout_height="wrap_content"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:gravity="center"
+    android:gravity="top"
     android:layout_gravity="top"
     android:orientation="horizontal"
     android:clickable="true"
-    android:minHeight="48dp">
+    android:minHeight="40dp">
 
     <FrameLayout
         android:id="@+id/date_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:minHeight="48dp"
+        android:minHeight="40dp"
         android:layout_weight="1"
         android:gravity="center_vertical|start" >
         	
@@ -65,7 +65,7 @@
         android:id="@+id/privacy_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:minHeight="48dp"
+        android:minHeight="40dp"
         android:layout_weight="1"
         android:gravity="center_vertical|end" >
 

@@ -83,10 +83,7 @@ class QuickStatusBarHeaderController extends ViewController<QuickStatusBarHeader
         mIconContainer = mView.findViewById(R.id.statusIcons);
 
         mIconManager = new StatusBarIconController.TintedIconManager(mIconContainer, featureFlags);
-        mCameraSlot = getResources().getString(com.android.internal.R.string.status_bar_camera);
-        mMicSlot = getResources().getString(com.android.internal.R.string.status_bar_microphone);
-        mLocationSlot = getResources().getString(com.android.internal.R.string.status_bar_location);
-
+        
     }
 
     @Override
