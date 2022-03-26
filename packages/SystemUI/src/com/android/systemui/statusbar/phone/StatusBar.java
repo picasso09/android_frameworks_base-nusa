@@ -2044,14 +2044,6 @@ public class StatusBar extends SystemUI implements
         setInteracting(StatusBarManager.WINDOW_STATUS_BAR, true);
     }
 
-    protected void toggleSettingsPanel() {
-        if (mPanelExpanded) {
-            mShadeController.animateCollapsePanels();
-        } else {
-            animateExpandSettingsPanel(null);
-        }
-    }
-
     public void postAnimateCollapsePanels() {
         mMainExecutor.execute(mShadeController::animateCollapsePanels);
     }
