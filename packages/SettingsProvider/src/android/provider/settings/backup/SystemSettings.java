@@ -111,5 +111,8 @@ public class SystemSettings {
         Settings.System.QS_FOOTER_SERVICES_SHOW,
         Settings.System.LOCKSCREEN_SMALL_CLOCK,
         Settings.System.USE_OLD_MOBILETYPE,
+        Settings.System.QQS_SHOW_BRIGHTNESS,
+        Settings.System.SHOW_AUTO_BRIGHTNESS_BUTTON,
+        Settings.System.BRIGHTNESS_SLIDER_POSITION,
     };
 }
