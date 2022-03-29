@@ -93,6 +93,10 @@ public class NavigationBarInflaterView extends FrameLayout
 
     private static final String GESTURE_NAVBAR_RADIUS =
             "system:" + Settings.System.GESTURE_NAVBAR_RADIUS;
+            
+    private static final String GESTURE_NAVBAR_MARGIN_BOTTOM =
+            "system:" + Settings.System.GESTURE_NAVBAR_MARGIN_BOTTOM;
+
 
     protected LayoutInflater mLayoutInflater;
     protected LayoutInflater mLandscapeInflater;
@@ -187,6 +191,7 @@ public class NavigationBarInflaterView extends FrameLayout
         Dependency.get(TunerService.class).addTunable(this, NAV_BAR_VIEWS);
         Dependency.get(TunerService.class).addTunable(this, NAV_BAR_INVERSE);
         Dependency.get(TunerService.class).addTunable(this, GESTURE_NAVBAR_RADIUS);
+        Dependency.get(TunerService.class).addTunable(this, GESTURE_NAVBAR_MARGIN_BOTTOM);
         Dependency.get(OmniSettingsService.class).addIntObserver(this, 
             Settings.System.NAVIGATION_BAR_ARROW_KEYS);
     }
@@ -207,6 +212,11 @@ public class NavigationBarInflaterView extends FrameLayout
                 setNavigationBarLayout(mNavBarLayout);
             }
         } else if (GESTURE_NAVBAR_RADIUS.equals(key)) {
+            if (QuickStepContract.isGesturalMode(mNavBarMode)) {
+                clearViews();
+                inflateLayout(getDefaultLayout());
+            }
+        } else if (GESTURE_NAVBAR_MARGIN_BOTTOM.equals(key)) {
             if (QuickStepContract.isGesturalMode(mNavBarMode)) {
                 clearViews();
                 inflateLayout(getDefaultLayout());
