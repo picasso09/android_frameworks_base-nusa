@@ -47,6 +47,7 @@
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
+                android:backgroundTint="@color/qs_build_bg"
                 android:background="@drawable/qs_tile_background"
                 android:clickable="true"
                 android:ellipsize="marquee"

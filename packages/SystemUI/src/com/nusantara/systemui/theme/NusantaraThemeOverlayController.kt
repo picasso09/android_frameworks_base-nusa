@@ -100,7 +100,8 @@ class NusantaraThemeOverlayController @Inject constructor(
     override fun start() {
         mTunerService.addTunable(this, PREF_COLOR_OVERRIDE, PREF_WHITE_LUMINANCE,
                 PREF_CHROMA_FACTOR, PREF_ACCURATE_SHADES,
-                PREF_LINEAR_LIGHTNESS, PREF_CUSTOM_COLOR, SYSTEM_BLACK_THEME)
+                PREF_LINEAR_LIGHTNESS, PREF_CUSTOM_COLOR,
+                SYSTEM_BLACK_THEME, NUSANTARA_CLEAR_THEME)
         super.start()
     }
 

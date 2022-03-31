@@ -103,6 +103,7 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
     protected static final int ACCENT = 1;
 
     protected static String SYSTEM_BLACK_THEME = "system_black_theme";
+    protected static String NUSANTARA_CLEAR_THEME = "nusantara_clear_theme";
 
     private final ThemeOverlayApplier mThemeManager;
     private final UserManager mUserManager;
@@ -625,8 +626,10 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
         }
 
         boolean isBlackTheme = mSecureSettings.getInt(SYSTEM_BLACK_THEME, 0) == 1;
+        boolean isNusantaraClearTheme = mSecureSettings.getInt(NUSANTARA_CLEAR_THEME, 0) == 1;
 
         mThemeManager.setIsBlackTheme(isBlackTheme);
+        mThemeManager.setIsNusantaraClearTheme(isNusantaraClearTheme);
 
         if (mNeedsOverlayCreation) {
             mNeedsOverlayCreation = false;
@@ -639,6 +642,7 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
         }
 
         mThemeManager.applyBlackTheme(isBlackTheme);
+        mThemeManager.applyNusantaraClearTheme(isNusantaraClearTheme);
     }
 
     @Override
