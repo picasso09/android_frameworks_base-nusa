@@ -120,6 +120,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     public int mBatteryStyle = BATTERY_STYLE_PORTRAIT;
     public int mShowBatteryPercent;
     public boolean mLeftBatteryPercent;
+    public boolean mShowQsPercentEstimate;
 
     private DualToneHandler mDualToneHandler;
 
@@ -232,6 +233,9 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     }
 
     void updateSettings() {
+        mShowQsPercentEstimate = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.QS_SHOW_BATTERY_PERCENT_ESTIMATE, 0,
+                UserHandle.USER_CURRENT) == 1;
         updateSbBatteryStyle();
         updateSbShowBatteryPercent();
         updateQsBatteryEstimate();
@@ -354,12 +358,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                         return;
                     }
                     if (estimate != null) {
-                        if (mBatteryPercentView != null) {
-                            batteryPercentViewSetText(estimate);
+                        if (mShowQsPercentEstimate) {
+                            if (mBatteryPercentView != null) {
+                                batteryPercentViewSetText(NumberFormat.getPercentInstance().format(mLevel / 100f) + " | " + estimate);
                         }
                         setContentDescription(getContext().getString(
                                 R.string.accessibility_battery_level_with_estimate,
                                 mLevel, estimate));
+                        } else {
+                            if (mBatteryPercentView != null) {
+                                batteryPercentViewSetText(estimate);
+                            }
+                            setContentDescription(getContext().getString(
+                                    R.string.accessibility_battery_level_with_estimate,
+                                    mLevel, estimate));
+                        }
                     } else {
                         setPercentTextAtCurrentLevel();
                     }
@@ -495,7 +508,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         updateShowPercent();
     }
 
-    private void leftBatteyText() {
+    void leftBatteyText() {
         mLeftBatteryPercent = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.DO_LEFT_BATTERY_TEXT, 0,
                 UserHandle.USER_CURRENT) == 1;

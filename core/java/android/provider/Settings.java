@@ -6216,6 +6216,12 @@ public final class Settings {
         public static final String QS_SHOW_BATTERY_ESTIMATE = "qs_show_battery_estimate";
 
         /**
+         * toogle show battery percent & estimate together
+         * @hide
+         */
+        public static final String QS_SHOW_BATTERY_PERCENT_ESTIMATE = "qs_show_battery_percent_estimate";
+
+        /**
          * These are all public system settings
          *
          * @hide
