@@ -77,8 +77,8 @@
                 android:layout_gravity="start|center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:format24Hour="hh:mm"
-                android:format12Hour="k:mm a" />
+                android:format12Hour="hh:mm a"
+                android:format24Hour="k:mm" />
                 
             <LinearLayout
                 android:id="@+id/jr_clock_container"
@@ -100,8 +100,8 @@
                     android:layout_gravity="start|center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:format24Hour="hh:mm"
-                    android:format12Hour="k:mm a" />
+                    android:format12Hour="hh:mm a"
+                    android:format24Hour="k:mm" />
 
                 <TextClock 
                     android:textDirection="locale"
