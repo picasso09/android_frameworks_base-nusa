@@ -17,6 +17,7 @@
 
 <!-- Extends FrameLayout -->
 <com.android.systemui.qs.QSFooterView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android" 
     android:id="@+id/qs_footer"
     android:layout_width="match_parent"
     android:layout_height="@dimen/qs_footer_height"
@@ -47,8 +48,8 @@
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:backgroundTint="@color/qs_build_bg"
-                android:background="@drawable/qs_tile_background"
+                android:backgroundTint="?androidprv:attr/colorSurface"
+                android:background="@drawable/qs_clock_bg"
                 android:clickable="true"
                 android:ellipsize="marquee"
                 android:focusable="true"

@@ -114,8 +114,10 @@ public class QSFooterView extends FrameLayout {
         if (mShouldShowBuildText) {
             mBuildText.setText((text == null || text.isEmpty()) ? "KOSP" : text);
             mBuildText.setVisibility(View.VISIBLE);
+            mBuildText.setSelected(true);
         } else {
             mBuildText.setVisibility(View.GONE);
+            mBuildText.setSelected(false);
         }
     }
 
