@@ -699,9 +699,9 @@ public class NavigationBar implements View.OnAttachStateChangeListener,
             mNavigationBarView.getHomeButton().getCurrentView().setHapticFeedbackEnabled(false);
             mNavigationBarView.getHomeButton().setOnLongClickListener(null);
         } else {
-            //mNavigationBarView.getHomeButton().getCurrentView().setLongClickable(true);
+            mNavigationBarView.getHomeButton().getCurrentView().setLongClickable(true);
             mNavigationBarView.getHomeButton().getCurrentView().setHapticFeedbackEnabled(true);
-            //mNavigationBarView.getHomeButton().setOnLongClickListener(this::onHomeLongClick);
+            mNavigationBarView.getHomeButton().setOnLongClickListener(this::onHomeLongClick);
         }
     }
 

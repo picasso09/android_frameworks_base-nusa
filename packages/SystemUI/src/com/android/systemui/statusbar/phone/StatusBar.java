@@ -529,6 +529,8 @@ public class StatusBar extends SystemUI implements
     protected GameSpaceManager mGameSpaceManager;
 
     protected TaskHelper mTaskHelper;
+    private NadSettingsObserver mNadSettingsObserver;
+    private boolean mShowNavBar;
 
     // expanded notifications
     // the sliding/resizing panel within the notification window
@@ -698,8 +700,6 @@ public class StatusBar extends SystemUI implements
 
     private final ColorExtractor.OnColorsChangedListener mOnColorsChangedListener =
             (extractor, which) -> updateTheme();
-
-    private boolean mShowNavBar;
 
     /**
      * Public constructor for StatusBar.
@@ -1004,6 +1004,7 @@ public class StatusBar extends SystemUI implements
         // Set up the initial notification state. This needs to happen before CommandQueue.disable()
         setUpPresenter();
 
+        mNadSettingsObserver = new NadSettingsObserver(mMainHandler);
         mNadSettingsObserver.observe();
         mNadSettingsObserver.update();
 
@@ -3880,11 +3881,9 @@ public class StatusBar extends SystemUI implements
         return mDeviceInteractive;
     }
 
-    private NadSettingsObserver mNadSettingsObserver = new NadSettingsObserver();
-
     private class NadSettingsObserver extends ContentObserver {
-        NadSettingsObserver() {
-            super(mMainHandler);
+        NadSettingsObserver(Handler handler) {
+            super(handler);
         }
 
         void observe() {
