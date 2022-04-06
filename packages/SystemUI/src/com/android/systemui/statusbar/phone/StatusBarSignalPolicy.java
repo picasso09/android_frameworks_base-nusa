@@ -178,6 +178,9 @@ public class StatusBarSignalPolicy implements SignalCallback,
                 mHideEthernet = hideEthernet;
                 mHideWifi = hideWifi;
                 mHideVpn = hideVpn;
+                // Re-register to get new callbacks.
+                mNetworkController.removeCallback(this);
+                mNetworkController.addCallback(this);
             }
         } else if (SHOW_ACTIVITY_INDICATORS.equals(key)) {
             mActivityEnabled = TunerService.parseIntegerSwitch(newValue, true);
