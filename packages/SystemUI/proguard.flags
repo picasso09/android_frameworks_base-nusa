@@ -61,7 +61,7 @@
 
 # Custom rules
 -keep class com.nusantara.** { *; }
--keep class com.octavi.** { *; }
+-keep class com.syberia.** { *; }
 
 # Google rules
 -keep class android.hardware.** { *; }

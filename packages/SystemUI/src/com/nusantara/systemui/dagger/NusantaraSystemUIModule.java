@@ -25,7 +25,7 @@ import androidx.annotation.Nullable;
 import com.nusantara.systemui.theme.NusantaraThemeOverlayController;
 import com.nusantara.systemui.NusantaraServices;
 import com.nusantara.systemui.smartspace.KeyguardSmartspaceController;
-import com.octavi.android.systemui.assist.AssistManagerGoogle;
+import com.syberia.android.systemui.assist.AssistManagerGoogle;
 
 import com.android.internal.logging.UiEventLogger;
 import com.android.internal.app.AssistUtils;
