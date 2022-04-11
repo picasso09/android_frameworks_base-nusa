@@ -61,12 +61,20 @@ import com.android.systemui.R;
 import com.android.systemui.recents.OverviewProxyService;
 import com.android.systemui.shared.system.QuickStepContract;
 
+import android.graphics.PorterDuff.Mode;
+import android.os.Handler;
+
+import com.android.systemui.statusbar.phone.BarBackgroundUpdater;
+
 public class KeyButtonView extends ImageView implements ButtonInterface {
     private static final String TAG = KeyButtonView.class.getSimpleName();
 
     public static final int CURSOR_REPEAT_FLAGS = KeyEvent.FLAG_SOFT_KEYBOARD
             | KeyEvent.FLAG_KEEP_TOUCH_MODE;
 
+    private Handler mHandler = new Handler();
+
+    private int mOverrideIconColor;
     private final boolean mPlaySounds;
     private final UiEventLogger mUiEventLogger;
     private int mContentDescriptionRes;
@@ -77,7 +85,8 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
     private boolean mIsVertical;
     private AudioManager mAudioManager;
     private boolean mGestureAborted;
-    @VisibleForTesting boolean mLongClicked;
+    @VisibleForTesting
+    boolean mLongClicked;
     private OnClickListener mOnClickListener;
     private final KeyButtonRipple mRipple;
     private final OverviewProxyService mOverviewProxyService;
@@ -124,6 +133,7 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
             return mId;
         }
     }
+
     private final Runnable mCheckLongPress = new Runnable() {
         public void run() {
             if (isPressed()) {
@@ -159,7 +169,7 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
 
     @VisibleForTesting
     public KeyButtonView(Context context, AttributeSet attrs, int defStyle, InputManager manager,
-            UiEventLogger uiEventLogger) {
+                         UiEventLogger uiEventLogger) {
         super(context, attrs);
         mUiEventLogger = uiEventLogger;
 
@@ -186,6 +196,24 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
         setBackground(mRipple);
         setWillNotDraw(false);
         forceHasOverlappingRendering(false);
+        BarBackgroundUpdater.addListener(new BarBackgroundUpdater.UpdateListener(this) {
+
+            @Override
+            public void onUpdateNavigationBarIconColor(int previousColor, int color) {
+                mOverrideIconColor = color;
+                updateKeyButtonView();
+            }
+        });
+    }
+
+    public void updateKeyButtonView() {
+        mHandler.post(() -> {
+            Drawable drawable = getDrawable();
+            if (BarBackgroundUpdater.mNavigationEnabled && drawable != null) {
+                setColorFilter(mOverrideIconColor);
+                ((KeyButtonDrawable) drawable).setColorFilter(mOverrideIconColor, Mode.SRC_ATOP);
+            }
+        });
     }
 
     @Override
@@ -301,8 +329,8 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
                 postDelayed(mCheckLongPress, ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
-                x = (int)ev.getRawX();
-                y = (int)ev.getRawY();
+                x = (int) ev.getRawX();
+                y = (int) ev.getRawY();
 
                 float slop = QuickStepContract.getQuickStepTouchSlopPx(getContext());
                 if (Math.abs(x - mTouchDownX) > slop || Math.abs(y - mTouchDownY) > slop) {
@@ -394,7 +422,7 @@ public class KeyButtonView extends ImageView implements ButtonInterface {
                 || (flags & KeyEvent.FLAG_CANCELED_LONG_PRESS) != 0) {
             return;  // don't log various cancels
         }
-        switch(mCode) {
+        switch (mCode) {
             case KeyEvent.KEYCODE_BACK:
                 uiEvent = longPressSet
                         ? NavBarButtonEvent.NAVBAR_BACK_BUTTON_LONGPRESS
