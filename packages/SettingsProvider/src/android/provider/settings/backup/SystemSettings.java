@@ -126,5 +126,9 @@ public class SystemSettings {
         Settings.System.HEADS_UP_BLACKLIST_VALUES,
         Settings.System.STATUS_BAR_SHOW_ACTIVITY_INDICATORS,
         Settings.System.ENABLE_RIPPLE_EFFECT,
+        Settings.System.ARTWORK_MEDIA_BACKGROUND,
+        Settings.System.ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR,
+        Settings.System.ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS,
+        Settings.System.ARTWORK_MEDIA_BACKGROUND_ALPHA,
     };
 }

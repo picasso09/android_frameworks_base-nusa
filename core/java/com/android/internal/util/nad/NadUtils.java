@@ -284,8 +284,4 @@ public class NadUtils {
         }
         return NO_CUTOUT;
     }
-
-    public static int dpToPx(Context context, int dp) {
-        return (int) ((dp * context.getResources().getDisplayMetrics().density) + 0.5);
-    }
 }

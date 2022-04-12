@@ -6144,25 +6144,6 @@ public final class Settings {
         public static final String NAVBAR_STYLE = "navbar_style";
 
         /**
-         * Enable and disable Artwork on background media notification
-         * @hide
-         */
-        public static final String ARTWORK_MEDIA_BACKGROUND = "artwork_media_background";
-        
-        /**
-         * force expand qs media player
-         * @hide
-         */
-        public static final String ARTWORK_MEDIA_FORCE_EXPAND = "artwork_media_force_expand";
-        
-        /**
-         * The fade level of Artwork on background media notification
-         * requires ARTWORK_MEDIA_BACKGROUND to be enabled
-         * @hide
-         */
-        public static final String ARTWORK_MEDIA_FADE_LEVEL = "artwork_media_fade_level";
-
-        /**
          * Three Finger Gesture from Oppo
          * @hide
          */
@@ -6299,6 +6280,30 @@ public final class Settings {
          * @hide
          */
         public static final String ENABLE_RIPPLE_EFFECT = "enable_ripple_effect";
+
+        /**
+         * Enable and disable Artwork on background media notification
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND = "artwork_media_background";
+
+        /**
+         * Whether to enable artwork blur
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR = "artwork_media_background_enable_blur";
+
+        /**
+         * Adjust blur radius for background media
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS = "artwork_media_background_blur_radius";
+
+        /**
+         * Adjust alpha for background media
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND_ALPHA = "artwork_media_background_alpha";
 
         /**
          * These are all public system settings
