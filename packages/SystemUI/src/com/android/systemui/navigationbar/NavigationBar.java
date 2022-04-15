@@ -983,7 +983,7 @@ public class NavigationBar implements View.OnAttachStateChangeListener,
 
         ButtonDispatcher recentsButton = mNavigationBarView.getRecentsButton();
         ButtonDispatcher homeButton = mNavigationBarView.getHomeButton();
-        homeButton.setLongClickable(false);
+        homeButton.setLongClickable(true);
 
         reconfigureHomeLongClick();
 
