@@ -122,7 +122,6 @@ import com.android.keyguard.dagger.KeyguardStatusViewComponent;
 import com.android.keyguard.dagger.KeyguardUserSwitcherComponent;
 import com.android.systemui.DejankUtils;
 import com.android.systemui.Dependency;
-import com.android.systemui.DescendantSystemUIUtils;
 import com.android.systemui.R;
 import com.android.systemui.animation.ActivityLaunchAnimator;
 import com.android.systemui.animation.Interpolators;
@@ -664,6 +663,8 @@ public class NotificationPanelViewController extends PanelViewController {
     private ImageView mReTickerComebackIcon;
     private TextView mReTickerContentTV;
     private NotificationStackScrollLayout mNotificationStackScroller;
+    private boolean mReTickerStatus;
+    private boolean mReTickerColored;
 
     private View.AccessibilityDelegate mAccessibilityDelegate = new View.AccessibilityDelegate() {
         @Override
@@ -4241,6 +4242,16 @@ public class NotificationPanelViewController extends PanelViewController {
                 /* notifyForDescendants */ false,
                 mSettingsChangeObserver
         );
+        mContentResolver.registerContentObserver(
+                Settings.System.getUriFor(Settings.System.RETICKER_STATUS),
+                /* notifyForDescendants */ false,
+                mSettingsChangeObserver
+        );
+        mContentResolver.registerContentObserver(
+                Settings.System.getUriFor(Settings.System.RETICKER_COLORED),
+                /* notifyForDescendants */ false,
+                mSettingsChangeObserver
+        );
     }
 
     private void unregisterSettingsChangeListener() {
@@ -5043,7 +5054,9 @@ public class NotificationPanelViewController extends PanelViewController {
     /* Descendant reTicker */
 
     public void reTickerView(boolean visibility) {
-        if (!DescendantSystemUIUtils.settingStatusBoolean("reticker_status", mView.getContext())) return;
+        mReTickerStatus = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                Settings.System.RETICKER_STATUS, 0, UserHandle.USER_CURRENT) != 0;
+        if (!mReTickerStatus) return;
         if (visibility && mReTickerComeback.getVisibility() == View.VISIBLE) {
             reTickerDismissal();
         }
@@ -5070,7 +5083,9 @@ public class NotificationPanelViewController extends PanelViewController {
             String mergedContentText = reTickerAppName + " " + reTickerContent;
             mReTickerComebackIcon.setImageDrawable(icon);
             Drawable dw = mView.getContext().getDrawable(R.drawable.reticker_background);
-            if (DescendantSystemUIUtils.settingStatusBoolean("reticker_colored", mView.getContext())) {
+            mReTickerColored = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                    Settings.System.RETICKER_COLORED, 0, UserHandle.USER_CURRENT) != 0;
+            if (mReTickerColored) {
                 int col;
                 col = row.getEntry().getSbn().getNotification().color;
                 mAppExceptions = mView.getContext().getResources().getStringArray(R.array.app_exceptions);
@@ -5106,7 +5121,7 @@ public class NotificationPanelViewController extends PanelViewController {
     }
 
     private void reTickerViewVisibility() {
-        if (!DescendantSystemUIUtils.settingStatusBoolean("reticker_status", mView.getContext())) {
+        if (!mReTickerStatus) {
             reTickerDismissal();
             return;
         }
