@@ -155,7 +155,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
      */
     public static final float BUSY_SCRIM_ALPHA = 1f;
     
-    public static final float BUSY_SCRIM_ALPHA_2 = 0.9f;
+    public static final float BUSY_SCRIM_ALPHA_2 = 0.8f;
     
     protected static String NUSANTARA_CLEAR_THEME = "nusantara_clear_theme";
 
@@ -971,9 +971,9 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
         if (isNusantaraClearTheme) {
         	alpha = Math.max(0, Math.min(0.8f, alpha));
         	mNotificationsScrim.setRenderEffect(RenderEffect.createBlurEffect(
-                 90f, //radius X
-                 90f, //Radius Y
-                 Shader.TileMode.CLAMP));// X=CLAMP,DECAL,MIRROR,REPEAT
+                 100f, //radius X
+                 100f, //Radius Y
+                 Shader.TileMode.CLAMP)); // X=CLAMP,DECAL,MIRROR,REPEAT
         } else {
             alpha = Math.max(0, Math.min(1.0f, alpha));
             mNotificationsScrim.setRenderEffect(null);
