@@ -24,65 +24,83 @@
         android:id="@+id/entity_header_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/nad_info_bg"
-        android:gravity="start|center"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
-            android:background="@drawable/nad_ava_bg"
-            android:backgroundTint="@android:color/system_accent1_600"
-            android:padding="2dp"
-            android:id="@+id/entity_header_icon"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:antialias="true"
-            android:gravity="start|center"
-            android:scaleType="fitCenter" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="15.0dp">
+            	
+            	<RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginStart="140.0dp" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="start|center"
-            android:orientation="vertical"
-            android:layout_marginTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
-
-            <TextView
-                android:id="@+id/entity_header_title"
-                style="@style/TextAppearance.EntityHeaderTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:layout_weight="0.5"
-                android:textDirection="locale" />
-
-            <TextView
-                style="@style/TextAppearance.EntityHeaderSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_weight="0.5"
-                android:text="We are the Nusantara Project Fans" />
-
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/entity_header_title"
+                        style="@style/TextAppearance.EntityHeaderTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:layout_weight="0.5"
+                        android:textDirection="locale"
+                        android:textSize="26sp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold" />
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome to Nusantara"
+                        android:textSize="18sp"
+                        android:layout_below="@+id/entity_header_title"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:textStyle="normal" />
+            	
+            	</RelativeLayout>
+            
+                <RelativeLayout
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/nad_info_bg"
+                    android:backgroundTint="?android:attr/colorPrimary"
+                    android:layout_gravity="center|start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+                    	
+                    <ImageView
+                        android:background="@drawable/nad_ava_bg"
+                        android:backgroundTint="@android:color/system_accent1_600"
+                        android:padding="0.0dp"
+                        android:id="@+id/entity_header_icon"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
+                        android:antialias="true"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitCenter" />
+            
+                </RelativeLayout>
+            
+            </FrameLayout>
 
     </LinearLayout>
         
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20.0dp"
-            android:layout_marginBottom="-20dp"
-            android:background="@drawable/nad_round_top"
-            android:rotation="180.0"
-            android:gravity="bottom"
-            android:backgroundTint="?android:attr/colorPrimary"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20.0dp"
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/nad_round_top"
+        android:rotation="180.0"
+        android:gravity="bottom"
+        android:backgroundTint="?android:attr/colorPrimary"/>
 
 </LinearLayout> 
