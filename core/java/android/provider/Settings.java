@@ -6054,12 +6054,6 @@ public final class Settings {
         public static final String STATUSBAR_NOTIF_COUNT = "statusbar_notif_count";
 
         /**
-         * Whether or not to vibrate when a touchscreen gesture is detected
-         * @hide
-         */
-        public static final String TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
-
-        /**
          * Force full screen for devices with cutout
          * @hide
          */
