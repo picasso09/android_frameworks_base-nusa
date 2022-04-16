@@ -11430,6 +11430,18 @@ public final class Settings {
         public static final String VOLUME_LINK_NOTIFICATION = "volume_link_notification";
 
         /**
+         * Whether to turn on black theme
+         * @hide
+         */
+        public static final String SYSTEM_BLACK_THEME = "system_black_theme";
+
+        /**
+         * Whether to turn on nusantara theme
+         * @hide
+         */
+        public static final String SYSTEM_NUSANTARA_THEME = "system_nusantara_theme";
+
+        /**
          * Whether to vibrate when quick settings tile is pressed.
          *
          * @hide

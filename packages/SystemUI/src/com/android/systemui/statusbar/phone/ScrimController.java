@@ -26,6 +26,7 @@ import android.app.AlarmManager;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Trace;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.MathUtils;
 import android.util.Pair;
@@ -156,8 +157,6 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
     public static final float BUSY_SCRIM_ALPHA = 1f;
     
     public static final float BUSY_SCRIM_ALPHA_2 = 0.8f;
-    
-    protected static String NUSANTARA_CLEAR_THEME = "nusantara_clear_theme";
 
     /**
      * Scrim opacity that can have text on top.
@@ -249,7 +248,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
             PanelExpansionStateManager panelExpansionStateManager, SecureSettings secureSettings) {
         mScrimStateListener = lightBarController::setScrimState;
         mSecureSettings = secureSettings;
-        boolean isNusantaraClearTheme = mSecureSettings.getInt(NUSANTARA_CLEAR_THEME, 0) == 1;
+        boolean isNusantaraClearTheme = mSecureSettings.getInt(Settings.Secure.SYSTEM_NUSANTARA_THEME, 0) == 1;
         if (isNusantaraClearTheme) {
             mDefaultScrimAlpha = BUSY_SCRIM_ALPHA_2;
         } else {
@@ -969,7 +968,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
     }
 
     private void updateScrimColor(View scrim, float alpha, int tint) {
-    	boolean isNusantaraClearTheme = mSecureSettings.getInt(NUSANTARA_CLEAR_THEME, 0) == 1;
+    	boolean isNusantaraClearTheme = mSecureSettings.getInt(Settings.Secure.SYSTEM_NUSANTARA_THEME, 0) == 1;
         if (isNusantaraClearTheme) {
         	alpha = Math.max(0, Math.min(0.8f, alpha));
         	mNotificationsScrim.setRenderEffect(RenderEffect.createBlurEffect(
