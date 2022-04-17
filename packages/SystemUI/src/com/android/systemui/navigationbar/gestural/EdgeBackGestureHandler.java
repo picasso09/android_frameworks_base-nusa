@@ -69,9 +69,7 @@ import com.android.internal.util.nad.NadUtils;
 import com.android.internal.util.nad.LineageButtons;
 import com.android.internal.config.sysui.SystemUiDeviceConfigFlags;
 import com.android.internal.policy.GestureNavigationSettingsObserver;
-import com.android.systemui.Dependency;
 import com.android.systemui.R;
-import com.android.systemui.assist.AssistManager;
 import com.android.systemui.SystemUIFactory;
 import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.dagger.qualifiers.Main;
@@ -237,7 +235,6 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
     private boolean mInRejectedExclusion = false;
     private boolean mIsOnLeftEdge;
 
-    private AssistManager mAssistManager;
     private int mTimeout = 2000; //ms
     private int mLeftLongSwipeAction;
     private int mRightLongSwipeAction;
@@ -378,7 +375,6 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
                 mContext.getMainThreadHandler(), mContext, this::onNavigationSettingsChanged);
 
         mHandler = new Handler();
-        mAssistManager = Dependency.get(AssistManager.class);
         updateCurrentUserResources();
     }
 
