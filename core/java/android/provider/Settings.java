@@ -6290,12 +6290,6 @@ public final class Settings {
         public static final String UDFPS_ICON = "udfps_icon";
 
         /**
-         * FOD night light
-         * @hide
-         */
-        public static final String FOD_NIGHT_LIGHT = "fod_night_light";
-
-        /**
          * Whether to play haptic feedback on udfps finger down event.
          * Default 1
          * @hide
