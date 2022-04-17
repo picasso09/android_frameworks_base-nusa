@@ -17,7 +17,6 @@
 package com.android.systemui.statusbar.notification.interruption;
 
 import com.android.systemui.statusbar.notification.collection.NotificationEntry;
-import java.util.ArrayList;
 
 /**
  * Provides bubble-up and heads-up state for notification entries.
@@ -62,9 +61,4 @@ public interface NotificationInterruptStateProvider {
      * Whether heads-up notification should be skipped when Less Boring heads up is enabled.
      */
     void setUseLessBoringHeadsUp(boolean lessBoring);
-
-    /**
-     * Limit notifications using a blacklist.
-     */
-    void setHeadsUpBlacklist(ArrayList<String> arrayList);
 }
