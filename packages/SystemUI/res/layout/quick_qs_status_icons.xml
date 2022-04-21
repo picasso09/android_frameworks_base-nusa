@@ -167,6 +167,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="1.0dp"
+        android:id="@+id/jr_right_content"
         android:gravity="center_vertical|end"
         android:layout_gravity="center_vertical|end"
         >
@@ -175,7 +176,6 @@
             android:id="@+id/batteryRemainingIcon"
             android:layout_height="0dp"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="end|center_vertical"
             systemui:textAppearance="@style/TextAppearance.QS.Status"
             android:paddingEnd="2dp" />
@@ -184,7 +184,6 @@
             android:id="@+id/statusIcons"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_gravity="end|center_vertical"
             android:paddingEnd="2dp" />
             
@@ -192,7 +191,6 @@
             android:id="@+id/carrier_group"
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1.0"
             android:paddingEnd="2dp" 
             android:layout_gravity="end|center_vertical"
             android:focusable="false"/>
