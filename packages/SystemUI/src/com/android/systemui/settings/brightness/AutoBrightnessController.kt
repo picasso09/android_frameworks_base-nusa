@@ -94,7 +94,7 @@ class AutoBrightnessController internal constructor(
     private fun isButtonEnabled() =
         systemSettings.getIntForUser(
             Settings.System.SHOW_AUTO_BRIGHTNESS_BUTTON,
-            0, UserHandle.USER_CURRENT
+            1, UserHandle.USER_CURRENT
         ) == 1
 
     private fun getIconResId() =
