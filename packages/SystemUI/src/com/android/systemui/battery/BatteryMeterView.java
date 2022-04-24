@@ -460,6 +460,9 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
             mCircleDrawable.setShowPercent(drawPercentInside);
             mFullCircleDrawable.setShowPercent(drawPercentInside);
         }
+        if (mShowBatteryEstimate) {
+            updatePercentText();
+        }
     }
 
     public void setIsQsHeader(boolean isQs) {
