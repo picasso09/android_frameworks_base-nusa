@@ -968,6 +968,10 @@ public class NavigationBar implements View.OnAttachStateChangeListener,
             backButton.setOnLongClickListener(recentsVisible
                     ? this::onLongPressBackRecents
                     : this::onLongPressBackHome);
+            recentsButton.setOnLongClickListener(this::onLongPressBackRecents);
+        } else {
+            backButton.setOnLongClickListener(null);
+            recentsButton.setOnLongClickListener(null);
         }
         // Note, this needs to be set after even if we're setting the listener to null
         backButton.setLongClickable(false);
@@ -982,7 +986,11 @@ public class NavigationBar implements View.OnAttachStateChangeListener,
         mNavigationBarView.reorient();
 
         ButtonDispatcher recentsButton = mNavigationBarView.getRecentsButton();
+        recentsButton.setOnClickListener(this::onRecentsClick);
+        recentsButton.setOnTouchListener(this::onRecentsTouch);
+
         ButtonDispatcher homeButton = mNavigationBarView.getHomeButton();
+        homeButton.setOnTouchListener(this::onHomeTouch);
         homeButton.setLongClickable(true);
 
         reconfigureHomeLongClick();
@@ -1052,18 +1060,9 @@ public class NavigationBar implements View.OnAttachStateChangeListener,
                 && ActivityManagerWrapper.getInstance().isScreenPinningActive()) {
             return onLongPressBackHome(v);
         }
-        if (shouldDisableNavbarGestures()) {
-            return false;
-        }
-        mMetricsLogger.action(MetricsEvent.ACTION_ASSIST_LONG_PRESS);
-        mUiEventLogger.log(NavBarActionEvent.NAVBAR_ASSIST_LONGPRESS);
-        Bundle args = new Bundle();
-        args.putInt(
-                AssistManager.INVOCATION_TYPE_KEY,
-                AssistManager.INVOCATION_TYPE_HOME_BUTTON_LONG_PRESS);
-        mAssistManagerLazy.get().startAssist(args);
-        mStatusBarOptionalLazy.get().ifPresent(StatusBar::awakenDreams);
-        mNavigationBarView.abortCurrentGesture();
+        KeyButtonView keyButtonView = (KeyButtonView) v;
+        keyButtonView.sendEvent(KeyEvent.ACTION_DOWN, KeyEvent.FLAG_LONG_PRESS);
+        keyButtonView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_LONG_CLICKED);
         return true;
     }
 
