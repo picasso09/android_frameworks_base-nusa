@@ -3052,8 +3052,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     if (keyCode == KeyEvent.KEYCODE_APP_SWITCH
                             || longPressBehavior == NavbarUtilities.KEY_ACTION_APP_SWITCH
                             || doubleTapBehavior == NavbarUtilities.KEY_ACTION_APP_SWITCH
-                            || longPressBehavior == NavbarUtilities.KEY_ACTION_SPLIT_SCREEN
-                            || doubleTapBehavior == NavbarUtilities.KEY_ACTION_SPLIT_SCREEN
                             || longPressBehavior == NavbarUtilities.KEY_ACTION_LAST_APP
                             || doubleTapBehavior == NavbarUtilities.KEY_ACTION_LAST_APP) {
                         preloadRecentApps();
@@ -6374,22 +6372,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 toggleRecentApps();
                 break;
             case NavbarUtilities.KEY_ACTION_SEARCH:
-                launchAssistAction(null, -1, -1, AssistUtils.INVOCATION_TYPE_UNKNOWN);
+                launchAssistAction(null, Integer.MIN_VALUE, 0, AssistUtils.INVOCATION_TYPE_UNKNOWN);
                 break;
             case NavbarUtilities.KEY_ACTION_VOICE_SEARCH:
                 launchAssistLongPressAction(false, false);
-                break;
-            case NavbarUtilities.KEY_ACTION_CAMERA:
-                sendCloseSystemWindows();
-                NavbarUtilities.launchCamera();
                 break;
             case NavbarUtilities.KEY_ACTION_LAST_APP:
                 awakenDreams();
                 // TODO> handle no recent apps
                 triggerVirtualKeypress(KeyEvent.KEYCODE_APP_SWITCH, !mRecentsVisible, false);
-                break;
-            case NavbarUtilities.KEY_ACTION_SPLIT_SCREEN:
-                NavbarUtilities.toggleSplitScreen();
                 break;
             case NavbarUtilities.KEY_ACTION_FLASHLIGHT:
                  ActionUtils.toggleCameraFlash();
@@ -6469,22 +6460,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 toggleRecentApps();
                 break;
             case NavbarUtilities.KEY_ACTION_SEARCH:
-                launchAssistAction(null, -1, -1, AssistUtils.INVOCATION_TYPE_UNKNOWN);
+                launchAssistAction(null, Integer.MIN_VALUE, 0, AssistUtils.INVOCATION_TYPE_UNKNOWN);
                 break;
             case NavbarUtilities.KEY_ACTION_VOICE_SEARCH:
                 launchAssistLongPressAction(false, false);
-                break;
-            case NavbarUtilities.KEY_ACTION_CAMERA:
-                sendCloseSystemWindows();
-                NavbarUtilities.launchCamera();
                 break;
             case NavbarUtilities.KEY_ACTION_LAST_APP:
                 awakenDreams();
                 // TODO> handle no recent apps
                 triggerVirtualKeypress(KeyEvent.KEYCODE_APP_SWITCH, !mRecentsVisible, false);
-                break;
-            case NavbarUtilities.KEY_ACTION_SPLIT_SCREEN:
-                NavbarUtilities.toggleSplitScreen();
                 break;
             case NavbarUtilities.KEY_ACTION_FLASHLIGHT:
                 ActionUtils.toggleCameraFlash();
@@ -6535,6 +6519,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case NavbarUtilities.KEY_ACTION_KILL_APP:
                 NadUtils.killForegroundApp();
                 break;
+            case NavbarUtilities.KEY_ACTION_SKIP_TRACK:
+                mLineageButtons.skipTrack();
+                break;
+            case NavbarUtilities.KEY_ACTION_PREVIOUS_TRACK:
+                mLineageButtons.previousTrack();
+                break;
         }
     }
 
@@ -6552,7 +6542,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 triggerVirtualKeypress(keyCode, false, false);
                 break;
             case KeyEvent.KEYCODE_ASSIST:
-                launchAssistAction(null, -1, -1, AssistUtils.INVOCATION_TYPE_UNKNOWN);
+                launchAssistAction(null, Integer.MIN_VALUE, 0, AssistUtils.INVOCATION_TYPE_UNKNOWN);
                 break;
             case KeyEvent.KEYCODE_APP_SWITCH:
                 toggleRecentApps();

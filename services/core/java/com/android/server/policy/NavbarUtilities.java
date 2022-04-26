@@ -33,22 +33,20 @@ public class NavbarUtilities {
     public static final int KEY_ACTION_APP_SWITCH = 2;
     public static final int KEY_ACTION_SEARCH = 3;
     public static final int KEY_ACTION_VOICE_SEARCH = 4;
-    public static final int KEY_ACTION_CAMERA = 5;
-    public static final int KEY_ACTION_LAST_APP = 6;
-    public static final int KEY_ACTION_SPLIT_SCREEN = 7;
-    public static final int KEY_ACTION_FLASHLIGHT = 8;
-    public static final int KEY_ACTION_CLEAR_NOTIFICATIONS = 9;
-    public static final int KEY_ACTION_VOLUME_PANEL = 10;
-    public static final int KEY_ACTION_SCREEN_OFF = 11;
-    public static final int KEY_ACTION_NOTIFICATIONS = 12;
-    public static final int KEY_ACTION_POWER_MENU = 13;
-    public static final int KEY_ACTION_SCREENSHOT = 14;
-    public static final int KEY_ACTION_QS_PANEL = 15;
-    public static final int KEY_ACTION_CUSTOM_APP = 16;
-    public static final int KEY_ACTION_RINGER_MODES = 17;
-    public static final int KEY_ACTION_KILL_APP = 18;
-    public static final int KEY_ACTION_SKIP_TRACK = 19;
-    public static final int KEY_ACTION_PREVIOUS_TRACK= 20;
+    public static final int KEY_ACTION_LAST_APP = 5;
+    public static final int KEY_ACTION_FLASHLIGHT = 6;
+    public static final int KEY_ACTION_CLEAR_NOTIFICATIONS = 7;
+    public static final int KEY_ACTION_VOLUME_PANEL = 8;
+    public static final int KEY_ACTION_SCREEN_OFF = 9;
+    public static final int KEY_ACTION_NOTIFICATIONS = 10;
+    public static final int KEY_ACTION_POWER_MENU = 11;
+    public static final int KEY_ACTION_SCREENSHOT = 12;
+    public static final int KEY_ACTION_QS_PANEL = 13;
+    public static final int KEY_ACTION_CUSTOM_APP = 14;
+    public static final int KEY_ACTION_RINGER_MODES = 15;
+    public static final int KEY_ACTION_KILL_APP = 16;
+    public static final int KEY_ACTION_SKIP_TRACK = 17;
+    public static final int KEY_ACTION_PREVIOUS_TRACK= 18;
 
     // Special values, used internal only.
     public static final int KEY_ACTION_HOME = 100;
@@ -96,16 +94,6 @@ public class NavbarUtilities {
     }
 
     /**
-     * Request current window to enter multiwindow mode.
-     */
-    public static void toggleSplitScreen() {
-        StatusBarManagerInternal statusbar = getCustomStatusBarManagerInternal();
-        if (statusbar != null) {
-            statusbar.toggleSplitScreen();
-        }
-    }
-
-    /**
      * List of key codes to intercept with our custom policy.
      */
     public static final int[] SUPPORTED_KEYCODE_LIST = {
@@ -126,9 +114,7 @@ public class NavbarUtilities {
             KEY_ACTION_APP_SWITCH,
             KEY_ACTION_SEARCH,
             KEY_ACTION_VOICE_SEARCH,
-            KEY_ACTION_CAMERA,
             KEY_ACTION_LAST_APP,
-            KEY_ACTION_SPLIT_SCREEN,
             KEY_ACTION_FLASHLIGHT,
             KEY_ACTION_CLEAR_NOTIFICATIONS,
             KEY_ACTION_VOLUME_PANEL,
