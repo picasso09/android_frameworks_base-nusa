@@ -693,7 +693,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                 Settings.System.STATUSBAR_CLOCK, 1,
                 UserHandle.USER_CURRENT) == 1;
         mShowLogo = Settings.System.getIntForUser(mContentResolver,
-                Settings.System.STATUS_BAR_LOGO, 0,
+                Settings.System.STATUS_BAR_LOGO, 1,
                 UserHandle.USER_CURRENT) == 1;
         if (!mShowClock) {
             mClockStyle = 1; // internally switch to centered clock layout because
