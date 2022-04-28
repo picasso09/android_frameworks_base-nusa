@@ -595,26 +595,21 @@ public class QuickStatusBarHeader extends FrameLayout implements
                 .getDimensionPixelSize(R.dimen.qs_quick_tile_size);
         mJrBaseContainer.setLayoutParams(lp);
         mJrDateContainer.setLayoutParams(lp);
-        
-        LinearLayout.LayoutParams lpBattery = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+
         LinearLayout.LayoutParams lpStatusIcon = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         LinearLayout.LayoutParams lpCareer = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         if (visible) {
-            lpBattery.weight = 0.4f;
             lpStatusIcon.weight = 0.4f;
             lpCareer.weight = 0.1f;
         } else {
-            lpBattery.weight = 0.3f;
             lpStatusIcon.weight = 0.3f;
             lpCareer.weight = 0.3f;
         }
-          
-        mBatteryRemainingIcon.setLayoutParams(lpBattery);
+
         mIconContainer.setLayoutParams(lpStatusIcon);
         mQSCarriers.setLayoutParams(lpCareer);
         
         mJrRightContent.setWeightSum(0.9f);
-        mJrRightContent.addView(mBatteryRemainingIcon);
         mJrRightContent.addView(mIconContainer);
         mJrRightContent.addView(mQSCarriers);
     }
