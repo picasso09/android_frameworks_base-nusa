@@ -18,5 +18,7 @@
 
     <!-- Gradient Color -->
     <color name="nad_end_color">#000</color>
+    
+    <color name="settingslib_colorSurfaceHeader">@android:color/system_neutral1_100</color>
 
 </resources>

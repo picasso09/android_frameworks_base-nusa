@@ -17,6 +17,7 @@
         android:background="@drawable/nad_bg_gaydient"
         android:backgroundTint="?androidprv:attr/colorSurfaceHeader"
         android:orientation="vertical"
+        android:layout_marginTop="-15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,7 +25,10 @@
         android:id="@+id/entity_header_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -71,11 +75,14 @@
                 <RelativeLayout
                     android:layout_width="110dp"
                     android:layout_height="140dp"
-                    android:background="@drawable/nad_info_bg"
-                    android:backgroundTint="?android:attr/colorPrimary"
                     android:layout_gravity="center|start"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp">
+                      	
+                    <View
+                        android:id="@+id/avatar_bg"
+                        android:layout_width="110dp"
+                        android:layout_height="140dp" />
                     	
                     <ImageView
                         android:background="@drawable/nad_ava_bg"
@@ -96,6 +103,7 @@
         
     <View
         android:layout_width="match_parent"
+        android:id="@+id/view6"
         android:layout_height="28.0dp"
         android:layout_marginBottom="-28dp"
         android:background="@drawable/home_header_round"
