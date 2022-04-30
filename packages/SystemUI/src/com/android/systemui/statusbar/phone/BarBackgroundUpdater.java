@@ -1,8 +1,9 @@
 /*
+ * Copyright (C) 2014 ParanoidAndroid Project
  * Copyright (C) 2021 Arif JeNong
  * Copyright (C) 2021 The Android Open Source Project
- * Copyright (C) Dynamic System Bars Project
- * Copyright (C) Nusantara Project
+ * Copyright (C) 2021 Dynamic System Bars Project
+ * Copyright (C) 2022 Nusantara Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +19,6 @@
  */
 
 
-// This sources implements DSB. Simple as that.
-
 package com.android.systemui.statusbar.phone;
 
 import android.content.BroadcastReceiver;
@@ -31,6 +30,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -45,8 +45,6 @@ public class BarBackgroundUpdater {
     public static boolean abu;
     public static boolean accent;
     public static boolean linkedColor;
-    public static boolean mStatusGradientEnabled;
-    public static boolean mNavigationGradientEnabled;
     public static boolean mStatusFilterEnabled;
     public static boolean mNavigationEnabled;
     public static boolean mStatusEnabled;
@@ -89,9 +87,7 @@ public class BarBackgroundUpdater {
         }
     };
 
-    private static final Thread THREAD = new Thread(new Runnable() {
-        @Override
-        public void run() {
+    private static final Thread THREAD = new Thread(() -> {
             while (true) {
                 float f2 = 0.3f;
                 int f3 = -10;
@@ -145,8 +141,8 @@ public class BarBackgroundUpdater {
                     parseColorLight = Color.parseColor("#FFFFFFFF");
                     parseColorDark = accent ? r.getColor(ResourceUtils.getAndroidColorResId("accent_device_default_light")) : Color.parseColor(abu ? "#ff646464" : "#FF000000");
 
-                    final int colors = DynamicUtils.getTargetColorStatusBar(DynamicUtils.TakeScreenshotSurface(), statusBarHeight);
-                    final int colorsn = linkedColor ? colors : DynamicUtils.getTargetColorNavi(DynamicUtils.TakeScreenshotSurface(), navigationBarHeight);
+                    final int colors = DynamicUtils.getTargetColorStatusBar(statusBarHeight);
+                    final int colorsn = linkedColor ? colors : DynamicUtils.getTargetColorNavi(navigationBarHeight);
 
                     if (navigationBarHeight <= 0 && mNavigationEnabled) {
                         // the navigation bar height is not positive - no dynamic navigation bar
@@ -223,8 +219,6 @@ public class BarBackgroundUpdater {
                     return;
                 }
             }
-        }
-
     });
 
     static {
@@ -232,10 +226,10 @@ public class BarBackgroundUpdater {
         THREAD.start();
     }
 
-    public static float cekbriknes(int i) {
-        return (0.299f * Color.red(i) +
-                0.587f * Color.green(i) +
-                0.114f * Color.blue(i)) / 255;
+    public static float cekbriknes(int tintColor) {
+        return (0.299f * Color.red(tintColor) +
+                0.587f * Color.green(tintColor) +
+                0.114f * Color.blue(tintColor)) / 255;
     }
 
     public static synchronized void setPauseState(boolean pause) {
@@ -281,16 +275,14 @@ public class BarBackgroundUpdater {
         resolver.registerContentObserver(Settings.System.getUriFor("ABU_ABU"), false, mObserver);
         resolver.registerContentObserver(Settings.System.getUriFor("ACCENT_COLOR"), false, mObserver);
         resolver.registerContentObserver(Settings.System.getUriFor("LINKED_COLOR"), false, mObserver);
-        accent = Settings.System.getIntForUser(resolver, "ACCENT_COLOR", 0, -2) == 1;
-        linkedColor = Settings.System.getIntForUser(resolver, "LINKED_COLOR", 0, -2) == 1;
-        abu = Settings.System.getIntForUser(resolver, "ABU_ABU", 0, -2) == 1;
-        reverse = Settings.System.getIntForUser(resolver, "UI_COLOR", 0, -2) == 1;
-        mStatusEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_STATE", 0, -2) == 1;
-        mStatusGradientEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_SYSTEM_BARS_GRADIENT_STATE", 0, -2) == 1;
-        mNavigationGradientEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BARS_GRADIENT_STATE", 0, -2) == 1;
-        mNavigationEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BAR_STATE", 0, -2) == 1;
-        mStatusFilterEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_FILTER_STATE", 0, -2) == 1;
-        mTransparency = Settings.System.getIntForUser(resolver, "EXPERIMENTAL_DSB_FREQUENCY", 255, -2);
+        accent = Settings.System.getIntForUser(resolver, "ACCENT_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+        linkedColor = Settings.System.getIntForUser(resolver, "LINKED_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+        abu = Settings.System.getIntForUser(resolver, "ABU_ABU", 0, UserHandle.USER_CURRENT) == 1;
+        reverse = Settings.System.getIntForUser(resolver, "UI_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+        mStatusEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_STATE", 0, UserHandle.USER_CURRENT) == 1;
+        mNavigationEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BAR_STATE", 0, UserHandle.USER_CURRENT) == 1;
+        mStatusFilterEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_FILTER_STATE", 0, UserHandle.USER_CURRENT) == 1;
+        mTransparency = Settings.System.getIntForUser(resolver, "EXPERIMENTAL_DSB_FREQUENCY", 255, UserHandle.USER_CURRENT);
         resume();
     }
 
@@ -334,16 +326,14 @@ public class BarBackgroundUpdater {
         @Override
         public void onChange(boolean selfChange) {
             ContentResolver resolver = mContext.getContentResolver();
-            accent = Settings.System.getIntForUser(resolver, "ACCENT_COLOR", 0, -2) == 1;
-            linkedColor = Settings.System.getIntForUser(resolver, "LINKED_COLOR", 0, -2) == 1;
-            abu = Settings.System.getIntForUser(resolver, "ABU_ABU", 0, -2) == 1;
-            reverse = Settings.System.getIntForUser(resolver, "UI_COLOR", 0, -2) == 1;
-            mStatusEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_STATE", 0, -2) == 1;
-            mStatusGradientEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_SYSTEM_BARS_GRADIENT_STATE", 0, -2) == 1;
-            mNavigationGradientEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BARS_GRADIENT_STATE", 0, -2) == 1;
-            mNavigationEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BAR_STATE", 0, -2) == 1;
-            mStatusFilterEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_FILTER_STATE", 0, -2) == 1;
-            mTransparency = Settings.System.getIntForUser(resolver, "EXPERIMENTAL_DSB_FREQUENCY", 255, -2);
+            accent = Settings.System.getIntForUser(resolver, "ACCENT_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+            linkedColor = Settings.System.getIntForUser(resolver, "LINKED_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+            abu = Settings.System.getIntForUser(resolver, "ABU_ABU", 0, UserHandle.USER_CURRENT) == 1;
+            reverse = Settings.System.getIntForUser(resolver, "UI_COLOR", 0, UserHandle.USER_CURRENT) == 1;
+            mStatusEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_STATE", 0, UserHandle.USER_CURRENT) == 1;
+            mNavigationEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_NAVIGATION_BAR_STATE", 0, UserHandle.USER_CURRENT) == 1;
+            mStatusFilterEnabled = Settings.System.getIntForUser(resolver, "DYNAMIC_STATUS_BAR_FILTER_STATE", 0, UserHandle.USER_CURRENT) == 1;
+            mTransparency = Settings.System.getIntForUser(resolver, "EXPERIMENTAL_DSB_FREQUENCY", 255, UserHandle.USER_CURRENT);
         }
     }
 
