@@ -25,21 +25,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.hardware.display.DisplayManagerGlobal;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Surface;
+import android.view.DisplayCutout;
 import android.view.SurfaceControl;
 import android.view.WindowManager;
-import android.graphics.Rect;
-import android.view.Window;
-import android.app.Activity;
-import android.view.DisplayCutout;
-
-import android.view.View;
 
 public class DynamicUtils {
 
@@ -96,18 +90,18 @@ public class DynamicUtils {
         return setBrightness;
     }
 
-    public static int getTargetColorStatusBar(Bitmap bitmap, int h) {
-        return bitmap == null || Build.VERSION.SDK_INT != 32 ? Color.BLACK : getTargetColorStatus(bitmap, h);
+    public static int getTargetColorStatusBar(int h) {
+        return getTargetColor(h, false);
     }
 
-    public static int getTargetColorNavi(Bitmap bitmap, int h) {
-        return bitmap == null || Build.VERSION.SDK_INT != 32 ? Color.BLACK : getTargetColorNavigationBar(bitmap, h);
+    public static int getTargetColorNavi(int h) {
+        return getTargetColor(h, true);
     }
 
     public static int getNotchHeightTop() {
         DisplayCutout displayCutout = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE))
-                                                               .getDefaultDisplay()
-                                                               .getCutout();
+            .getDefaultDisplay()
+            .getCutout();
 
         if(displayCutout == null || displayCutout.getBoundingRects() == null){
             return 0;
@@ -118,8 +112,8 @@ public class DynamicUtils {
 
     public static int getNotchHeightBottom() {
         DisplayCutout displayCutout = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE))
-                                                               .getDefaultDisplay()
-                                                               .getCutout();
+            .getDefaultDisplay()
+            .getCutout();
 
         if(displayCutout == null || displayCutout.getBoundingRects() == null){
             return 0;
@@ -130,8 +124,8 @@ public class DynamicUtils {
 
     public static int getNotchHeightRight() {
         DisplayCutout displayCutout = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE))
-                                                               .getDefaultDisplay()
-                                                               .getCutout();
+            .getDefaultDisplay()
+            .getCutout();
 
         if(displayCutout == null || displayCutout.getBoundingRects() == null){
             return 0;
@@ -142,8 +136,8 @@ public class DynamicUtils {
 
     public static int getNotchHeightLeft() {
         DisplayCutout displayCutout = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE))
-                                                               .getDefaultDisplay()
-                                                               .getCutout();
+            .getDefaultDisplay()
+            .getCutout();
 
         if(displayCutout == null || displayCutout.getBoundingRects() == null){
             return 0;
@@ -152,97 +146,30 @@ public class DynamicUtils {
         return displayCutout.getSafeInsetLeft();
     }
 
-    public static int getTargetColorStatus(Bitmap bitmap, int statusBarHeight) {
+    public static int getTargetColor(int heightTarget, boolean navigationBar) {
+        Bitmap bitmap = takeScreenshotSurface();
+        if (bitmap == null || Build.VERSION.SDK_INT != 32) {
+            return Color.BLACK;
+        }
         Context ctx = mContext;
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRealMetrics(displayMetrics);
         int color;
         int[] bmp = new int[5];
         int n = 0;
+        int Height = bitmap.getHeight()
+            - 5
+            - getNotchHeightBottom();
         int density = (int) displayMetrics.density;
-        int OffsetY = statusBarHeight + 2 +
-                               getNotchHeightTop();
-        int OffsetX = (1 / density) + getNotchHeightLeft();
-        do {
-            bmp[n] = bitmap.getPixel(OffsetX, OffsetY);
-            n++;
-        } while (n < 5);
-        int[] pixelSpacing = new int[5];
-        int n2 = 0;
-        do {
-            pixelSpacing[n2] = 0;
-            n2++;
-        } while (n2 < 5);
-        int n3 = 0;
-        do {
-            int color2 = bmp[n3];
-            int n4 = 0;
-            int colorPixel2 = 0;
-            do {
-                colorPixel2 <<= 1;
-                if (color2 == bmp[n4]) {
-                    colorPixel2 |= 1;
-                }
-                n4++;
-            } while (n4 < 5);
-            pixelSpacing[n3] = colorPixel2;
-            n3++;
-        } while (n3 < 5);
-        int pixelSpaceColor = pixelSpacing[0];
-        if (pixelSpaceColor >= 29 || pixelSpaceColor == 23 || pixelSpaceColor == 27) {
-            color = bmp[0];
-        } else if (pixelSpacing[1] == 15 || (pixelSpacing[0] == 17 && pixelSpacing[1] == 14)) {
-            color = bmp[1];
-        } else {
-            int n5 = 0;
-            do {
-                pixelSpacing[n5] = 0;
-                n5++;
-            } while (n5 < 5);
-            int n6 = 0;
-            do {
-                int color3 = bmp[n6];
-                int n7 = 0;
-                int colorPixel = 0;
-                do {
-                    colorPixel <<= 1;
-                    if (getColorBrightness(color3, bmp[n7]) != 0) {
-                        colorPixel |= 1;
-                    }
-                    n7++;
-                } while (n7 < 5);
-                pixelSpacing[n6] = colorPixel;
-                n6++;
-            } while (n6 < 5);
-            int pixelSpace = pixelSpacing[0];
-            if (pixelSpace >= 29 || pixelSpace == 23 || pixelSpace == 27) {
-                color = getARGB(bmp, pixelSpacing[0]);
-            } else if (pixelSpacing[1] != 15 && (pixelSpacing[0] != 17 || pixelSpacing[1] != 14)) {
-                return 0;
-            } else {
-                color = getARGB(bmp, pixelSpacing[1]);
+        int OffsetY = navigationBar ?
+            (Height - getNavigationBarSize()) :
+            (heightTarget
+            + 2
+            + getNotchHeightTop());
+        if (navigationBar) {
+            if (OffsetY <= 0) {
+                OffsetY = Height - heightTarget;
             }
-        }
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] = 0.8f;
-        return color;
-    }
-
-    public static int getTargetColorNavigationBar(Bitmap bitmap, int navigationBarHeight) {
-        Context ctx = mContext;
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        final WindowManager wm = ((WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE));
-        wm.getDefaultDisplay().getRealMetrics(displayMetrics);
-        int color;
-        int[] bmp = new int[5];
-        int n = 0;
-        int Height = bitmap.getHeight() - 5 -
-                             getNotchHeightBottom();
-        int density = ((int) displayMetrics.density);
-        int OffsetY = Height - getNavigationBarSize();
-        if (OffsetY <= 0) {
-            OffsetY = Height - navigationBarHeight;
         }
         int OffsetX = (1 / density) + getNotchHeightLeft();
         do {
@@ -344,18 +271,18 @@ public class DynamicUtils {
         return realSize;
     }
 
-    public static Bitmap TakeScreenshotSurface() {
+    public static Bitmap takeScreenshotSurface() {
         // Get Colors from the screenshot
         final IBinder displayToken = SurfaceControl.getInternalDisplayToken();
         Point point = getScreenSize();
         Rect crop = new Rect(0, 0, point.x, point.y);
 
         final SurfaceControl.DisplayCaptureArgs captureArgs =
-                new SurfaceControl.DisplayCaptureArgs.Builder(displayToken)
-                        .setSize(crop.width(), crop.height())
-                        .build();
+            new SurfaceControl.DisplayCaptureArgs.Builder(displayToken)
+            .setSize(crop.width(), crop.height())
+            .build();
         final SurfaceControl.ScreenshotHardwareBuffer screenshotBuffer =
-                SurfaceControl.captureDisplay(captureArgs);
+            SurfaceControl.captureDisplay(captureArgs);
         final Bitmap screenShot = screenshotBuffer == null ? null : screenshotBuffer.asBitmap();
         if (screenShot == null) {
             Log.e(TAG, "Failed to get colors apply Black!!! for dynamic system bars");
@@ -367,3 +294,4 @@ public class DynamicUtils {
     }
 
 }
+
