@@ -380,6 +380,7 @@ public class QuickStatusBarHeader extends FrameLayout implements
                 .addFloat(mJrDateContainer, "alpha", 1, 0)
                 .addFloat(mJrClock, "alpha", 1, 0)
                 .addFloat(mJrAnalogClock, "alpha", 0, 1)
+                .addFloat(mJrBaseContainer, "alpha", 0, 10)
                 .setListener(new TouchAnimator.ListenerAdapter() {
                     @Override
                     public void onAnimationAtEnd() {
@@ -405,7 +406,7 @@ public class QuickStatusBarHeader extends FrameLayout implements
                         super.onAnimationAtStart();
                         setSeparatorVisibility(mShowClockIconsSeparator);
                         setJrClockVisibility(true);
-                        mJrBaseContainer.setBackgroundResource(R.drawable.ic_blank);
+                        mJrClockContainer.setBackgroundResource(R.drawable.ic_blank);
                         // In QQS we never ignore RSSI.
                         mIconContainer.removeIgnoredSlots(mRssiIgnoredSlots);
                     }
@@ -575,15 +576,15 @@ public class QuickStatusBarHeader extends FrameLayout implements
     // jr clock
     private void setJrClockVisibility(boolean visible) {
     	int newVisibility = visible ? View.VISIBLE : View.GONE;
-        
-        mQSCarriers.setVisibility(visible ? View.GONE : View.VISIBLE);
+
+        Configuration config = mContext.getResources().getConfiguration();
+        mQSCarriers.setVisibility(visible || config.orientation == Configuration.ORIENTATION_LANDSCAPE ? View.GONE : View.VISIBLE);
 
         mJrClock.setVisibility(visible ? View.VISIBLE : View.GONE);
         mJrClockContainer.setVisibility(visible ? View.GONE : View.VISIBLE);
         mJrDateContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
         mJrAnalogClock.setVisibility(visible ? View.GONE : View.VISIBLE);
-        
-        Configuration config = mContext.getResources().getConfiguration();
+
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mJrBaseContainer.getLayoutParams();
         lp = (LinearLayout.LayoutParams) mJrDateContainer.getLayoutParams();
         

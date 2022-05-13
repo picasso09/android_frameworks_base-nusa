@@ -61,24 +61,6 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
 
-            <TextClock
-                android:id="@+id/jr_clock"
-                android:textAppearance="@style/TextAppearance.StatusBar.Clock"
-                android:textColor="?android:attr/colorPrimary"
-                android:textStyle="normal"
-                android:gravity="start|center"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:background="@drawable/qs_clock_bg"
-                android:backgroundTint="?android:colorAccent"
-                android:layout_gravity="start|center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:format12Hour="h:mm a"
-                android:format24Hour="kk:mm" />
-                
             <LinearLayout
                 android:id="@+id/jr_clock_container"
                 android:gravity="start|center"
@@ -117,9 +99,27 @@
                     android:format12Hour="EEE, MMMM dd" />
                 
               </LinearLayout>
-                
-          </LinearLayout>
         	
+            </LinearLayout>
+
+            <TextClock
+                android:id="@+id/jr_clock"
+                android:textAppearance="@style/TextAppearance.StatusBar.Clock"
+                android:textColor="?android:attr/colorPrimary"
+                android:textStyle="normal"
+                android:gravity="start|center"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/qs_clock_bg"
+                android:backgroundTint="?android:colorAccent"
+                android:layout_gravity="start|center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="h:mm a"
+                android:format24Hour="kk:mm" />
+                
         <LinearLayout 
             android:id="@+id/jr_date_container"
             android:gravity="start|center"
@@ -154,28 +154,21 @@
         android:visibility="gone"
         />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/rightLayout"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0"
-        android:layout_gravity="center_vertical|end"
-        android:gravity="center_vertical|end"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:paddingTop="1.0dp"
-        android:gravity="center_vertical|end"
         android:layout_gravity="center_vertical|end"
+        android:layout_marginBottom="3dp"
+        android:gravity="center_vertical|end"
         >
 
         <com.android.systemui.battery.BatteryMeterView
             android:id="@+id/batteryRemainingIcon"
             android:layout_height="0dp"
             android:layout_width="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="1"
             android:layout_gravity="end|center_vertical"
             systemui:textAppearance="@style/TextAppearance.QS.Status"
             android:paddingEnd="2dp" />
@@ -184,7 +177,7 @@
             android:id="@+id/statusIcons"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="1"
             android:layout_gravity="end|center_vertical"
             android:paddingEnd="2dp" />
             
@@ -192,12 +185,11 @@
             android:id="@+id/carrier_group"
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="0.4"
+            android:layout_weight="1"
             android:paddingEnd="2dp" 
             android:layout_gravity="end|center_vertical"
             android:focusable="false"/>
 
     </LinearLayout>
-    </FrameLayout>
 
 </LinearLayout>
