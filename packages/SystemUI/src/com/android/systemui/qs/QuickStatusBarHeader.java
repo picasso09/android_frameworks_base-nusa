@@ -221,7 +221,7 @@ public class QuickStatusBarHeader extends FrameLayout implements
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (mStatusIconsView.getMeasuredHeight() != mTopViewMeasureHeight) {
             mTopViewMeasureHeight = mStatusIconsView.getMeasuredHeight();
-            post(this::updateAnimators);
+            updateAnimators();
         }
     }
 
