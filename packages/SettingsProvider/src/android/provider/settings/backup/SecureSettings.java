@@ -194,6 +194,7 @@ public class SecureSettings {
         Settings.Secure.LOCKSCREEN_SHOW_CONTROLS,
         Settings.Secure.LOCKSCREEN_SHOW_WALLET,
         Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK,
+        Settings.Secure.STATUS_BAR_SHOW_VIBRATE_ICON,
         Settings.Secure.TORCH_DOUBLE_TAP_POWER_GESTURE_ENABLED,
         Settings.Secure.TORCH_LONG_PRESS_POWER,
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
