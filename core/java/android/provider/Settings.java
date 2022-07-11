@@ -6275,6 +6275,12 @@ public final class Settings {
         public static final String ARTWORK_MEDIA_BACKGROUND_ALPHA = "artwork_media_background_alpha";
 
         /**
+         * Adjust fade filter percent for background media
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT = "artwork_media_background_fade_percent";
+
+        /**
          * @hide
          */
         public static final String UDFPS_ANIM = "udfps_anim";
