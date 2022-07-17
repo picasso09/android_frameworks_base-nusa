@@ -4120,6 +4120,9 @@ public class StatusBar extends SystemUI implements
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RETICKER_STATUS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4146,6 +4149,9 @@ public class StatusBar extends SystemUI implements
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL))) {
                 setBrightnessControl();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.RETICKER_STATUS))) {
+                setRetickerStatus();
             }
         }
 
@@ -4156,6 +4162,7 @@ public class StatusBar extends SystemUI implements
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
             setBrightnessControl();
+            setRetickerStatus();
         }
     }
 
@@ -4196,6 +4203,13 @@ public class StatusBar extends SystemUI implements
                 Settings.System.LESS_BORING_HEADS_UP, 0,
                 UserHandle.USER_CURRENT) == 1;
         mNotificationInterruptStateProvider.setUseLessBoringHeadsUp(lessBoringHeadsUp);
+    }
+
+    private void setRetickerStatus() {
+        boolean reTicker = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.RETICKER_STATUS, 0,
+                UserHandle.USER_CURRENT) == 1;
+        mNotificationInterruptStateProvider.setUseReticker(reTicker);
     }
 
     private void setHeadsUpStoplist() {
