@@ -6304,20 +6304,6 @@ public final class Settings {
         public static final String SCREEN_OFF_FOD = "screen_off_fod";
 
         /**
-         * reTicker Status
-         * @hide
-         */
-        @Readable
-        public static final String RETICKER_STATUS = "reticker_status";
-
-        /**
-         * reTicker Colored
-         * @hide
-         */
-        @Readable
-        public static final String RETICKER_COLORED = "reticker_colored";
-
-        /**
          * Whether or not to vibrate when a touchscreen gesture is detected
          * @hide
          */
