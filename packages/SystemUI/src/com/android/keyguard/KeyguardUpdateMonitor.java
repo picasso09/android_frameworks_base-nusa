@@ -3521,16 +3521,23 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     }
 
     class SettingsObserver extends ContentObserver {
+        private ContentResolver mContentResolver;
         SettingsObserver(Handler handler) {
             super(handler);
         }
 
         void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
+            mContentResolver = mContext.getContentResolver();
+            mContentResolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.FACE_UNLOCK_METHOD), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
+        }
+
+        void unobserve(){
+            if (mContentResolver != null){
+                mContentResolver.unregisterContentObserver(this);
+            }
         }
 
         @Override
@@ -3569,6 +3576,10 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
 
         if (mTimeFormatChangeObserver != null) {
             mContext.getContentResolver().unregisterContentObserver(mTimeFormatChangeObserver);
+        }
+
+        if (mSettingsObserver != null) {
+            mSettingsObserver.unobserve();
         }
 
         try {
