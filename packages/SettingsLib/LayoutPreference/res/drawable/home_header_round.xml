@@ -25,7 +25,7 @@
                 android:radius="?android:dialogCornerRadius" />
         </shape>
     </item>
-    <item>
+    <item android:top="-50dp">
         <shape
             android:shape="rectangle">
             <solid
