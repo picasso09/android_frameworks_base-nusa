@@ -86,6 +86,7 @@ android_library {
         "res-columbus",
         "res-product",
         "res-keyguard",
+        "res-smartspace",
         "res-elmyra",
     ],
     static_libs: [
@@ -113,7 +114,6 @@ android_library {
         "androidx.dynamicanimation_dynamicanimation",
         "androidx-constraintlayout_constraintlayout",
         "androidx.exifinterface_exifinterface",
-	"bcsmartspace-res",	
         "kotlinx_coroutines_android",
         "kotlinx_coroutines",
         "iconloader_base",
