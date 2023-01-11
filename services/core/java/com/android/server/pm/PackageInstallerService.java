@@ -23,6 +23,7 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AppGlobals;
 import android.app.AppOpsManager;
+import android.app.BroadcastOptions;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PackageDeleteObserver;
@@ -1019,7 +1020,10 @@ public class PackageInstallerService extends IPackageInstaller.Stub implements
                     PackageInstaller.STATUS_PENDING_USER_ACTION);
             fillIn.putExtra(Intent.EXTRA_INTENT, intent);
             try {
-                mTarget.sendIntent(mContext, 0, fillIn, null, null);
+                final BroadcastOptions options = BroadcastOptions.makeBasic();
+                options.setPendingIntentBackgroundActivityLaunchAllowed(false);
+                mTarget.sendIntent(mContext, 0, fillIn, null /* onFinished*/,
+                        null /* handler */, null /* requiredPermission */, options.toBundle());
             } catch (SendIntentException ignored) {
             }
         }
@@ -1044,7 +1048,10 @@ public class PackageInstallerService extends IPackageInstaller.Stub implements
                     PackageManager.deleteStatusToString(returnCode, msg));
             fillIn.putExtra(PackageInstaller.EXTRA_LEGACY_STATUS, returnCode);
             try {
-                mTarget.sendIntent(mContext, 0, fillIn, null, null);
+                final BroadcastOptions options = BroadcastOptions.makeBasic();
+                options.setPendingIntentBackgroundActivityLaunchAllowed(false);
+                mTarget.sendIntent(mContext, 0, fillIn, null /* onFinished*/,
+                        null /* handler */, null /* requiredPermission */, options.toBundle());
             } catch (SendIntentException ignored) {
             }
         }
@@ -1074,7 +1081,10 @@ public class PackageInstallerService extends IPackageInstaller.Stub implements
                     PackageInstaller.STATUS_PENDING_USER_ACTION);
             fillIn.putExtra(Intent.EXTRA_INTENT, intent);
             try {
-                mTarget.sendIntent(mContext, 0, fillIn, null, null);
+                final BroadcastOptions options = BroadcastOptions.makeBasic();
+                options.setPendingIntentBackgroundActivityLaunchAllowed(false);
+                mTarget.sendIntent(mContext, 0, fillIn, null /* onFinished*/,
+                        null /* handler */, null /* requiredPermission */, options.toBundle());
             } catch (SendIntentException ignored) {
             }
         }
@@ -1114,7 +1124,10 @@ public class PackageInstallerService extends IPackageInstaller.Stub implements
                 }
             }
             try {
-                mTarget.sendIntent(mContext, 0, fillIn, null, null);
+                final BroadcastOptions options = BroadcastOptions.makeBasic();
+                options.setPendingIntentBackgroundActivityLaunchAllowed(false);
+                mTarget.sendIntent(mContext, 0, fillIn, null /* onFinished*/,
+                        null /* handler */, null /* requiredPermission */, options.toBundle());
             } catch (SendIntentException ignored) {
             }
         }
