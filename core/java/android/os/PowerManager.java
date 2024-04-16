@@ -232,13 +232,13 @@ public final class PowerManager {
      * @hide
      */
     @UnsupportedAppUsage
-    public static final int BRIGHTNESS_ON = 255;
+    public static final int BRIGHTNESS_ON = 2047;
 
     /**
      * Brightness value for fully off.
      * @hide
      */
-    public static final int BRIGHTNESS_OFF = 0;
+    public static final int BRIGHTNESS_OFF = 255;
 
     /**
      * Brightness value for default policy handling by the system.

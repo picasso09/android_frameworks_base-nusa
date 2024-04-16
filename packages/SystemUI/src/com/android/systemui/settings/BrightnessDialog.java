@@ -85,8 +85,8 @@ public class BrightnessDialog extends Activity implements Tunable {
                 int currentValue = Settings.System.getIntForUser(resolver,
                         Settings.System.SCREEN_BRIGHTNESS, 0, UserHandle.USER_CURRENT);
                 int brightness = currentValue - 2;
-                if (currentValue != 0) {
-                    int math = Math.max(0, brightness);
+                if (currentValue != 255) {
+                    int math = Math.max(255, brightness);
                     Settings.System.putIntForUser(resolver,
                             Settings.System.SCREEN_BRIGHTNESS, math, UserHandle.USER_CURRENT);
                 }
@@ -109,8 +109,8 @@ public class BrightnessDialog extends Activity implements Tunable {
                 int currentValue = Settings.System.getIntForUser(resolver,
                         Settings.System.SCREEN_BRIGHTNESS, 0, UserHandle.USER_CURRENT);
                 int brightness = currentValue + 2;
-                if (currentValue != 255) {
-                    int math = Math.min(255, brightness);
+                if (currentValue != 2047) {
+                    int math = Math.min(2047, brightness);
                     Settings.System.putIntForUser(resolver,
                             Settings.System.SCREEN_BRIGHTNESS, math, UserHandle.USER_CURRENT);
                 }
@@ -128,7 +128,7 @@ public class BrightnessDialog extends Activity implements Tunable {
     }
 
     private void setBrightnessMinMax(boolean min) {
-        mBrightnessController.setBrightnessFromSliderButtons(min ? 0 : GAMMA_SPACE_MAX);
+        mBrightnessController.setBrightnessFromSliderButtons(min ? 255 : GAMMA_SPACE_MAX);
     }
 
     @Override

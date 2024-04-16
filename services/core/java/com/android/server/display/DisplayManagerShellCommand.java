@@ -92,11 +92,11 @@ class DisplayManagerShellCommand extends ShellCommand {
             brightness = Float.parseFloat(brightnessText);
         } catch (NumberFormatException e) {
         }
-        if (brightness < 0 || brightness > 1) {
+        if (brightness < 0 || brightness > 8) {
             getErrPrintWriter().println("Error: brightness should be a number between 0 and 1");
             return 1;
         }
-        mService.setBrightness((int) (brightness * 255));
+        mService.setBrightness((int) (brightness * 2047));
         return 0;
     }
 

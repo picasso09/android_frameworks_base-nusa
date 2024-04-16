@@ -20,7 +20,7 @@ import android.util.MathUtils;
 
 public class BrightnessUtils {
 
-    public static final int GAMMA_SPACE_MAX = 1023;
+    public static final int GAMMA_SPACE_MAX = 2047;
 
     // Hybrid Log Gamma constant values
     private static final float R = 0.5f;
@@ -96,6 +96,6 @@ public class BrightnessUtils {
             ret = A * MathUtils.log(normalizedVal - B) + C;
         }
 
-        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX, ret));
+        return Math.round(MathUtils.lerp(255, GAMMA_SPACE_MAX, ret));
     }
 }

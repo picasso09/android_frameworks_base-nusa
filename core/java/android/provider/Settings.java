@@ -3565,7 +3565,7 @@ public final class Settings {
         public static final String SCREEN_BRIGHTNESS_FOR_VR = "screen_brightness_for_vr";
 
         private static final Validator SCREEN_BRIGHTNESS_FOR_VR_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 255);
+                new SettingsValidators.InclusiveIntegerRangeValidator(255, 2047);
 
         /**
          * Control whether to enable automatic brightness mode.
